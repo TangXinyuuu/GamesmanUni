@@ -1,12 +1,19 @@
 <template>
     <div id="app-game-body-statistics-moves">
-        <button id="app-game-body-statistics-moves-undo" @click="store.dispatch(actionTypes.undoMove)" :disabled="disabledUndo">Undo</button>
-        <button id="app-game-body-statistics-moves-restart" @click="store.dispatch(actionTypes.restartMatch)">Restart</button>
-        <button id="app-game-body-statistics-moves-redo" @click="store.dispatch(actionTypes.redoMove)" :disabled="disabledRedo">Redo</button>
+        <button id="app-game-body-statistics-moves-undo" @click="store.dispatch(actionTypes.undoMove)" :disabled="disabledUndo">
+            <img src="../../models/images/icon-undo.svg" height="12" with="12">
+        </button>
+        <button id="app-game-body-statistics-moves-restart" @click="store.dispatch(actionTypes.restartMatch)">
+            <img src="../../models/images/icon-restart.svg" height="12" with="12">
+        </button>
+        <button id="app-game-body-statistics-moves-redo" @click="store.dispatch(actionTypes.redoMove)" :disabled="disabledRedo">
+            <img src="../../models/images/icon-redo.svg" height="12" with="12">
+        </button>
     </div>
 </template>
 
 <script lang="ts" setup>
+    import AppGameBodyStatisticsMessage from "./AppGameBodyStatisticsMessage.vue";
     import { computed } from "vue";
     import { actionTypes, useStore } from "../../scripts/plugins/store";
 
@@ -31,4 +38,5 @@
             padding: 0 0.5rem;
         }
     }
+
 </style>

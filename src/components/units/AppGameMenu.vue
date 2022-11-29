@@ -4,16 +4,16 @@
         <div id="app-game-menu-content">
             <div id="app-game-menu-content-buttons">
                 <button class="buttons" @click="activeTab = 'vvh'">
-                    Visual Value History
+                    <img src="../../models/images/icon-chart.png" height="30" with="30">
                 </button>
                 <!-- <button class="buttons" @click="activeTab = 'analysis'">
                     Analysis
                 </button> -->
                 <button class="buttons" @click="activeTab = 'startPos'">
-                    Customize Starting Position
+                    <img src="../../models/images/icon-position.png" height="30" with="30">
                 </button>
                 <button class="buttons" @click="activeTab = 'moveHist'">
-                    Move History
+                    <img src="../../models/images/icon-history.png" height="30" with="30">
                 </button>
             </div>
             <div id="app-game-menu-content-active">
@@ -38,20 +38,19 @@
 
 <style lang="scss" scoped>
     #app-game-menu {
-        flex: 1 1 auto;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: flex-start;
+        width: max(45rem, min(5vh, 5vw));
         #app-game-menu-content {
             border-radius: 1rem;
             border: 0.1rem solid var(--neutralColor);
-            padding: 4rem;
+            padding: 1rem;
             .buttons {
-                margin-top: 2rem;
                 margin-right: 0.5rem;
                 margin-left: 0.5rem;
-                margin-bottom: 2rem;
+                margin-bottom: 1rem;
                 padding: 0 0.5rem;
                 border-radius: 10rem;
                 border: 0.1rem solid var(--neutralColor);

@@ -1,6 +1,6 @@
 <template>
     <div id="app-game-body-header-title">
-        <h2>{{ gameName }} ({{ variantDescription }})</h2>
+        <h1>{{ gameName }} ({{ variantDescription }})</h1>
     </div>
 </template>
 

@@ -360,6 +360,7 @@
                 transform: rotate(-90deg);
             }
             > #chart {
+
                 > .player-winning-direction,
                 > .left-player-winning-direction,
                 > .right-player-winning-direction {

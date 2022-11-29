@@ -48,8 +48,7 @@
                 border: 0.1rem solid var(--neutralColor);
                 padding: 1rem;
                 border-spacing: 5rem;
-                width: 50vh;
-                height: 3vh;
+
             }
             #app-game-menu-customPos-input-submit {
                 padding: 0.5rem;

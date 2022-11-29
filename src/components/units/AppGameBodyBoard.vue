@@ -24,3 +24,16 @@
         return AppGameBodyBoardFallback;
     };
 </script>
+
+<style lang="scss" scoped>
+    #app-game-body-board {
+        align: top;
+        align-content: normal;
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        min-width: min(55vw, 60vh);
+    }
+</style>

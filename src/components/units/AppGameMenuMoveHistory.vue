@@ -49,8 +49,6 @@
                 border: 0.1rem solid var(--neutralColor);
                 padding: 1rem;
                 border-spacing: 5rem;
-                width: 50vh;
-                height: 6vh;
             }
             #app-game-menu-moveHist-input-submit {
                 padding: 0.5rem;

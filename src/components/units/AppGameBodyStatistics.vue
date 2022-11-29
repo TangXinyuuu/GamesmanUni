@@ -3,8 +3,8 @@
         <div id="first-row">
             <AppGameBodyStatisticsData />
             <AppGameBodyStatisticsMoves />
+            <AppGameBodyStatisticsMessage />
         </div>
-        <AppGameBodyStatisticsMessage />
     </div>
 </template>
 
@@ -30,7 +30,7 @@
             flex-wrap: wrap;
             justify-content: space-between;
             > * {
-                flex: 1 1 auto;
+                flex: auto;
             }
         }
     }

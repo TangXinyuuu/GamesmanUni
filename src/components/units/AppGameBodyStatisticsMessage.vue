@@ -46,9 +46,11 @@
     #app-game-body-statistics-message {
         border-radius: 1rem;
         border: 0.1rem solid var(--neutralColor);
+        max-width: max(15vw, 10vh);
         > p {
             padding: 1rem;
             text-align: center;
+
             > mark {
                 border-radius: 1rem;
                 padding: 0.25rem 0.5rem;

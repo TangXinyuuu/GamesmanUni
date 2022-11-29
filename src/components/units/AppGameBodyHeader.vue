@@ -19,7 +19,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: center;
         > * {
             margin: 1rem;
         }
