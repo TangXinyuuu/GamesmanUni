@@ -8,17 +8,21 @@
                 placeholder="Enter move history of game here"
             />
             <button id="app-game-menu-moveHist-input-submit" @click="doSomething">Submit</button>
+
         </div>
         <p v-show="showInfo" id="app-game-menu-moveHist-infoText">
             Instructions on how to format the move history...
         </p>
+        <AppGameMenuMoveHistoryFileDownload />
     </div>
+
 </template>
 
 <script lang="ts" setup>
     import { computed, ref } from "vue";
     // import { actionTypes, useStore } from "../../scripts/plugins/store";
-    import AppGameMenuMoveHistoryFileUpload from "./AppGameMenuMoveHistoryFileUpload.vue";
+
+    import AppGameMenuMoveHistoryFileDownload from "./AppGameMenuMoveHistoryFileDownload.vue";
 
     const showInfo = ref(false);
     const inputHist = ref("");
