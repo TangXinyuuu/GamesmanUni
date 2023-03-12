@@ -85,11 +85,13 @@ export type Position = Status & {
             position: string;
             positionValue: string;
             remoteness: number;
+            winby: number;
             mex: string;
         }>;
         position: string;
         positionValue: string;
         remoteness: number;
+        winby: number;
         mex: string;
     };
 };

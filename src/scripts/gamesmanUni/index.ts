@@ -86,6 +86,7 @@ const formatMoves = (source: Array<{
         position: string;
         positionValue: string;
         remoteness: number;
+        winby: number;
         mex: string;
     }>) => {
     const target: Types.Moves = { ...Defaults.defaultAvailableMoves };
@@ -118,6 +119,7 @@ const loadPosition = async (app: Types.App, payload: { gameType: string; gameId:
         position: updatedPosition.response.position,
         positionValue: updatedPosition.response.positionValue,
         remoteness: updatedPosition.response.remoteness,
+        winby: updatedPosition.response.winby,
         mex: updatedPosition.response["mex"] || "",
     };
     return app;
@@ -148,7 +150,7 @@ export const initiateMatch = async (app: Types.App, payload: {
         variantId: string;
         matchType?: string;
         startPosition?: string
-    }) => {
+}) => {
     const cachedGames = app.gameTypes[payload.gameType].games;
     if (!Object.keys(cachedGames).length || !Object.keys(cachedGames[payload.gameId].variants.variants).length) {
         const updatedApp = await loadVariants(app, payload);

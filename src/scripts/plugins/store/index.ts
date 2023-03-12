@@ -38,6 +38,7 @@ type Getters = {
     currentRounds(state: State): GMUTypes.Rounds;
     currentStartPosition(state: State): string;
     currentVariantId(state: State): string;
+    currentWinby(state: State): number;
     dataSources(state: State): GMUTypes.DataSources;
     fallbackLocale(state: State): string;
     game(state: State): (gameType: string, gameId: string) => GMUTypes.Game;
@@ -74,6 +75,7 @@ const getters: Vuex.GetterTree<State, State> & Getters = {
     currentAvailableMoves: (state: State) => state.app.currentMatch.round.position.availableMoves,
     currentGameId: (state: State) => state.app.currentMatch.gameId,
     currentGameName: (state: State) => state.app.gameTypes[state.app.currentMatch.gameType].games[state.app.currentMatch.gameId].name,
+    currentGameTheme: (state: State) => state.app.currentMatch.gameTheme,
     currentGameType: (state: State) => state.app.currentMatch.gameType,
     currentLeftPlayer: (state: State) => state.app.users[state.app.currentMatch.players[0]],
     currentMatch: (state: State) => state.app.currentMatch,
@@ -97,8 +99,8 @@ const getters: Vuex.GetterTree<State, State> & Getters = {
     currentRoundId: (state: State) => state.app.currentMatch.round.id,
     currentRounds: (state: State) => state.app.currentMatch.rounds,
     currentStartPosition: (state: State) => state.app.currentMatch.startPosition,
-    currentGameTheme: (state: State) => state.app.currentMatch.gameTheme,
     currentVariantId: (state: State) => state.app.currentMatch.variantId,
+    currentWinby: (state: State) => state.app.currentMatch.round.position.winby,
     dataSources: (state: State) => state.app.dataSources,
     fallbackLocale: (state: State) => state.app.preferences.fallbackLocale,
     game: (state: State) => (gameType: string, gameId: string) => state.app.gameTypes[gameType].games[gameId],
