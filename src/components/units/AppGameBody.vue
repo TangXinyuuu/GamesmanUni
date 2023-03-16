@@ -1,8 +1,8 @@
 <template>
     <div id="app-game-body">
-        <AppGameBodyHeader />
+
         <AppGameBodyStatistics />
-        <!-- <AppGameMenu /> -->
+        <AppGameMenu />
     </div>
 </template>
 

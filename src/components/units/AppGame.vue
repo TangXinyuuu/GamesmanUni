@@ -2,7 +2,6 @@
     <div id="app-game">
         <AppGameBodyHeader />
         <AppGameContainer />
-        <AppGameMenu />
     </div>
 </template>
 
@@ -14,7 +13,6 @@
 
     import AppGameContainer from "./AppGameContainer.vue";
     import AppGameBodyHeader from "./AppGameBodyHeader.vue";
-    import AppGameMenu from "./AppGameMenu.vue";
 
 
     const route = useRoute();

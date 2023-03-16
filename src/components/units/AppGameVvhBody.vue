@@ -6,9 +6,6 @@
             <mark class="uni-tie color">tie</mark>
             <mark class="uni-lose color">lose</mark>
         </p>
-        <p class="top x-axis-label" v-if="showVvhGuides">
-            <b>Remoteness</b>
-        </p>
         <div id="body">
             <p id="left-y-axis-label" v-if="showVvhGuides && !isPuzzleGame">
                 <b>Moves</b>
@@ -222,9 +219,7 @@
                     </template>
                 </template>
             </svg>
-            <p id="right-y-axis-label" v-if="showVvhGuides">
-                <b>Moves</b>
-            </p>
+            
         </div>
         <p class="bottom x-axis-label" v-if="showVvhGuides">
             <b>Remoteness</b>
@@ -312,7 +307,7 @@
     const chartHeight = computed(() => 2 * gridTop.value + gridHeight.value);
     const gridBottom = computed(() => chartHeight.value - gridTop.value);
 
-    const yCoordinateWidth = ref(5);
+    const yCoordinateWidth = ref(2.5);
     const chartWidth = ref(50);
     const columnCount = computed(() => (isPuzzleGame.value ? 1 : 2) * (Math.max(5, maximumRemoteness.value) + 1));
     const gridWidth = computed(() => chartWidth.value - 2 * yCoordinateWidth.value);
@@ -330,9 +325,7 @@
 
 <style lang="scss" scoped>
     #app-game-vvh-body {
-        border-radius: 1rem;
         border: 0.1rem solid var(--neutralColor);
-        padding: 1rem;
         > #color-guides {
             margin: 1rem;
             text-align: center;
@@ -358,6 +351,9 @@
             > #left-y-axis-label {
                 text-align: center;
                 transform: rotate(-90deg);
+                padding: 0rem;
+                margin: 0rem;
+                
             }
             > #chart {
 
@@ -389,7 +385,8 @@
                 }
                 > .move-coordinate {
                     fill: var(--primaryColor);
-                    font-size: 0.07rem;
+                    font-size: 0.06rem;
+                    font-weight: 400;
                 }
                 > #grid-base {
                     fill: white;
@@ -441,6 +438,8 @@
             > #right-y-axis-label {
                 text-align: center;
                 transform: rotate(90deg);
+                padding: 0rem;
+                margin:0rem;
             }
         }
         #meters {
