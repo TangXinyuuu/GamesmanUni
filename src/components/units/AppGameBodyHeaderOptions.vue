@@ -248,8 +248,19 @@
                 if (isPuzzleGame.value) {
                     updatedPlayerId.value = currentPlayerId.value[0] === "p" ? "c1" : "p1";
                 } else {
-                    updatedLeftPlayerId.value = "";
-                    updatedRightPlayerId.value = "";
+                    if (updatedMatchType.value === "pvp") {
+                        updatedLeftPlayerId.value = "p1";
+                        updatedRightPlayerId.value = "p2";
+                    } else if (updatedMatchType.value === "pvc") {
+                        updatedLeftPlayerId.value = "p1";
+                        updatedRightPlayerId.value = "c1";
+                    } else if (updatedMatchType.value === "cvp") {
+                        updatedLeftPlayerId.value = "c1";
+                        updatedRightPlayerId.value = "p1";
+                    } else  if (updatedMatchType.value === "cvc") {
+                        updatedLeftPlayerId.value = "c1";
+                        updatedRightPlayerId.value = "c2";
+                    }
                 }
             }
         }
