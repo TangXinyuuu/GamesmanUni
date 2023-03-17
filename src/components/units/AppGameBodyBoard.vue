@@ -34,6 +34,6 @@
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: flex-start;
-        min-width: min(55vw, 60vh);
+        min-width: min(70vw, 70vh);
     }
 </style>
