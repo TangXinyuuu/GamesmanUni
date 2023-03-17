@@ -308,7 +308,7 @@
     const gridBottom = computed(() => chartHeight.value - gridTop.value);
 
     const yCoordinateWidth = ref(2.5);
-    const chartWidth = ref(50);
+    const chartWidth = ref(40);
     const columnCount = computed(() => (isPuzzleGame.value ? 1 : 2) * (Math.max(5, maximumRemoteness.value) + 1));
     const gridWidth = computed(() => chartWidth.value - 2 * yCoordinateWidth.value);
     const columnWidth = computed(() => gridWidth.value / columnCount.value);
@@ -319,8 +319,8 @@
     const nextMovePositionValueSize = ref(0.1);
     const xInterval = ref(5);
     const linkWidth = ref(0.2);
-    const xBarWidth = ref(0.1);
-    const xIntervalBarWidth = ref(0.2);
+    const xBarWidth = ref(0.01);
+    const xIntervalBarWidth = ref(0.02);
 </script>
 
 <style lang="scss" scoped>
@@ -387,6 +387,8 @@
                     fill: var(--primaryColor);
                     font-size: 0.06rem;
                     font-weight: 400;
+                    text-align: center;
+                   
                 }
                 > #grid-base {
                     fill: white;
