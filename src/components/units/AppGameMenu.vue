@@ -17,10 +17,10 @@
                 </button>
             </div>
             <div id="app-game-menu-content-active">
-                <AppGameVvh v-show="activeTab === 'vvh'"/>
+                <AppGameVvh v-show="activeTab === 'vvh'" />
                 <!-- <AppGameMenuAnalysis/> -->
-                <AppGameMenuPosition v-show="activeTab === 'startPos'"/>
-                <AppGameMenuMoveHistory v-show="activeTab === 'moveHist'"/>
+                <AppGameMenuPosition v-show="activeTab === 'startPos'" />
+                <AppGameMenuMoveHistory v-show="activeTab === 'moveHist'" />
             </div>
         </div>
     </div>
@@ -48,7 +48,6 @@
             border: 0.1rem solid var(--neutralColor);
             padding: 4rem;
             .buttons {
-                margin-top: 2rem;
                 margin-right: 1rem;
                 margin-left: 1rem;
                 margin-bottom: 2rem;
