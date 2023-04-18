@@ -144,6 +144,7 @@ export type Match = {
     lastPlayed: number;
     ended: number;
     backgroundLoading: boolean;
+    useWinby: boolean;
 };
 
 export type Rounds = Record<number, Round>;

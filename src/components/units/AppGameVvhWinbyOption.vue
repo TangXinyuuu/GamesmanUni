@@ -1,17 +1,11 @@
 <template>
-    <div id="app-game-vvh-header">
-        <AppGameVvhHeaderGuidesOptions />
-        <AppGameVvhHeaderTitle />
-        <AppGameVvhHeaderMetersOptions />
-        <AppGameVvhWinbyOption />
-    </div>
+    <button id="app-game-vvh-winby" @click="store.options()">Winby</button>
 </template>
 
 <script lang="ts" setup>
     import AppGameVvhHeaderGuidesOptions from "./AppGameVvhHeaderGuidesOptions.vue";
     import AppGameVvhHeaderMetersOptions from "./AppGameVvhHeaderMetersOptions.vue";
     import AppGameVvhHeaderTitle from "./AppGameVvhHeaderTitle.vue";
-    import AppGameVvhWinbyOption from "./AppGameVvhWinbyOption.vue";
 </script>
 
 <style lang="scss" scoped>
