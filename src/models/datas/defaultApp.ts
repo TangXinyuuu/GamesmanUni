@@ -115,6 +115,7 @@ export const defaultOptions: Types.Options = {
     showMenu: true,
     showVvhGuides: true,
     showVvhMeters: false,
+    showWinby: false,
 };
 
 export const defaultMatches: Types.Matches = {};
@@ -148,6 +149,7 @@ export const defaultMatch: Types.Match = {
     lastPlayed: 0,
     ended: 0,
     backgroundLoading: false,
+    useWinby: false,
 };
 
 export const defaultUser: Types.User = {
