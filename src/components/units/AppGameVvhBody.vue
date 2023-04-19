@@ -6,8 +6,11 @@
             <mark class="uni-tie color">tie</mark>
             <mark class="uni-lose color">lose</mark>
         </p>
-        <p class="top x-axis-label" v-if="showVvhGuides">
+        <p class="top x-axis-label" v-if="showVvhGuides && !showWinby">
             <b>Remoteness</b>
+        </p>
+        <p class="top x-axis-label" v-if="showWinby">
+            <b>Winby</b>
         </p>
         <div id="body">
             <p id="left-y-axis-label" v-if="showVvhGuides && !isPuzzleGame">
