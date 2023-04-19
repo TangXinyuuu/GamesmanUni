@@ -7,8 +7,8 @@ const defaultUpdate: Types.Update = {
 
 export const defaultPreferences: Types.Preferences = {
     theme: "light",
-    locale: "en",
-    fallbackLocale: "en",
+    locale: "en-US",
+    fallbackLocale: "en-US",
     rootFontSize: "11px",
 };
 
@@ -16,8 +16,8 @@ export const defaultDataSources: Types.DataSources = {
     gitHubRepositoryAPI: "https://api.github.com/repos/GamesCrafters/GamesmanUni",
     onePlayerGameAPI: "https://nyc.cs.berkeley.edu/puzzles",
     // onePlayerGameAPI: "http://localhost:9001/",
-    // twoPlayerGameAPI: "https://nyc.cs.berkeley.edu/universal/v1/games",
-    twoPlayerGameAPI: "http://localhost:8082/games"
+    twoPlayerGameAPI: "https://nyc.cs.berkeley.edu/universal/v1/games",
+    // twoPlayerGameAPI: "http://localhost:8082/games"
 };
 
 export const defaultAvailableMove: Types.Move = {
@@ -115,17 +115,17 @@ export const defaultOptions: Types.Options = {
     showMenu: true,
     showVvhGuides: true,
     showVvhMeters: false,
+    vvhScrolling: false,
     showWinby: false,
 };
 
 export const defaultMatches: Types.Matches = {};
 
-export const defaultRounds: Types.Rounds = {};
+export const defaultRounds: Types.Rounds = [];
 
 export const defaultRound: Types.Round = {
     id: 0,
-    playerId: "",
-    players: [],
+    firstPlayerTurn: true,
     move: "",
     moveName: "",
     moveValue: "",
@@ -138,52 +138,17 @@ export const defaultMatch: Types.Match = {
     gameId: "",
     gameTheme: "",
     variantId: "",
-    type: "",
     startPosition: "",
-    players: [],
-    startingPlayerId: "",
-    rounds: {},
+    firstPlayer: {name: "Player 1", isComputer: false},
+    secondPlayer: {name: "Player 2", isComputer: false},
+    rounds: [],
     moveHistory: "",
     round: { ...defaultRound, position: { ...defaultPosition, availableMoves: {} } },
     created: 0,
     lastPlayed: 0,
-    ended: 0,
     backgroundLoading: false,
     useWinby: false,
-};
-
-export const defaultUser: Types.User = {
-    id: "string",
-    name: "string",
-    options: { ...defaultOptions },
-    matches: {},
-};
-
-export const defaultUsers: Types.Users = {
-    p1: {
-        id: "p1",
-        name: "Player 1",
-        options: { ...defaultOptions },
-        matches: {},
-    },
-    p2: {
-        id: "p2",
-        name: "Player 2",
-        options: { ...defaultOptions },
-        matches: {},
-    },
-    c1: {
-        id: "c1",
-        name: "Computer 1",
-        options: { ...defaultOptions },
-        matches: {},
-    },
-    c2: {
-        id: "c2",
-        name: "Computer 2",
-        options: { ...defaultOptions },
-        matches: {},
-    },
+    computerMoving: false
 };
 
 export const defaultApp: Types.App = {
@@ -193,29 +158,25 @@ export const defaultApp: Types.App = {
     dataSources: { ...defaultDataSources },
     gameTypes: { puzzles: { ...defaultGames, games: {} }, games: { ...defaultGames, games: {} } },
     commits: { ...defaultUpdate, commits: {} },
-    users: {
-        p1: { id: "p1", name: "Player 1", options: { ...defaultOptions }, matches: {} },
-        p2: { id: "p2", name: "Player 2", options: { ...defaultOptions }, matches: {} },
-        c1: { id: "c1", name: "Computer 1", options: { ...defaultOptions }, matches: {} },
-        c2: { id: "c2", name: "Computer 2", options: { ...defaultOptions }, matches: {} },
-    },
+    options: { ...defaultOptions },
+    matches: {},
     currentMatch: {
         id: 0, gameType: "",
         gameId: "",
         variantId: "",
         gameTheme: "",
-        type: "",
         startPosition: "",
-        players: [],
-        startingPlayerId: "",
-        rounds: {},
+        firstPlayer: {name: "Player 1", isComputer: false},
+        secondPlayer: {name: "Player 2", isComputer: false},
+        rounds: [],
         moveHistory: "",
+        useWinby: false,
         round: {
             ...defaultRound,
             position: { ...defaultPosition, availableMoves: {} } },
             created: 0,
             lastPlayed: 0,
-            ended: 0,
             backgroundLoading: false,
-        },
+            computerMoving: false,
+    },
 };
