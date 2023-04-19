@@ -1,5 +1,5 @@
 <template>
-    <button id="app-game-vvh-winby" @click="store.commit(mutationTypes.showWinby, !winby)">+</button>
+    <button id="app-game-vvh-winby" @click="displayWinby">+</button>
 </template>
 
 <script lang="ts" setup>
@@ -9,10 +9,15 @@
     import { computed } from "vue";
     import { mutationTypes, useStore } from "../../scripts/plugins/store";
 
-    
+
     const store = useStore();
     const options = computed(() => store.getters.options);
-    const winby = computed(() => (options.value ? options.value.showWinby : false));
+    
+    const displayWinby = () => {
+        const isWinby = computed(() => (options.value ? options.value.showWinby : false));
+        store.commit(mutationTypes.showWinby, !isWinby.value);
+        console.log(options.value.showWinby);
+    };
 </script>
 
 <style lang="scss" scoped>
