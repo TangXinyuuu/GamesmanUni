@@ -1,4 +1,7 @@
 <template>
+    <div id="app-game-winby-body">
+        <AppGameVvhHeaderWinbyBody class="buttons" title="Toggle Winby"/>
+    </div>
     <div id="app-game-vvh-body">
         <p id="color-guides" v-if="showVvhGuides">
             <mark class="uni-win color">win</mark>
@@ -6,12 +9,12 @@
             <mark class="uni-tie color">tie</mark>
             <mark class="uni-lose color">lose</mark>
         </p>
-        <p class="top x-axis-label" v-if="showVvhGuides && !showWinby">
+        <p class="top x-axis-label" v-if="showVvhGuides ">
             <b>Remoteness</b>
         </p>
-        <p class="top x-axis-label" v-if="showWinby">
+       <!--  <p class="top x-axis-label" v-if="showVvhGuides && showWinby">
             <b>Winby</b>
-        </p>
+        </p> -->
         <div id="body">
             <p id="left-y-axis-label" v-if="showVvhGuides && !isPuzzleGame">
                 <b>Moves</b>
@@ -89,41 +92,80 @@
                                           text-anchor="middle">D</text>
 
                 <!-- Remoteness Coordinates -->
-                <template v-for="(_, remoteness) in Math.max(5, maximumRemoteness) + 1"
-                        :key="remoteness">
-                    <text class="remoteness-coordinate"
-                            v-if="!isPuzzleGame &&remoteness % xInterval === 0"
-                            :x="gridLeft + remoteness * columnWidth"
-                            :y="gridTop - xCoordinateHeight / 2"
-                            dominant-baseline="middle"
-                            text-anchor="middle">
-                        {{ remoteness }}
-                    </text>
-                    <text class="remoteness-coordinate"
-                            v-if="remoteness % xInterval === 0"
-                            :x="gridRight - remoteness * columnWidth"
-                            :y="gridTop - xCoordinateHeight / 2"
-                            dominant-baseline="middle"
-                            text-anchor="middle">
-                        {{ remoteness }}
-                    </text>
-                    <text class="remoteness-coordinate"
-                            v-if="!isPuzzleGame && remoteness % xInterval === 0"
-                            :x="gridLeft + remoteness * columnWidth"
-                            :y="gridBottom + xCoordinateHeight / 2"
-                            dominant-baseline="middle"
-                            text-anchor="middle">
-                        {{ remoteness }}
-                    </text>
-                    <text class="remoteness-coordinate"
-                            v-if="remoteness % xInterval === 0"
-                            :x="gridRight - remoteness * columnWidth"
-                            :y="gridBottom + xCoordinateHeight / 2"
-                            dominant-baseline="middle"
-                            text-anchor="middle">
-                        {{ remoteness }}
-                    </text>
+               <!--  <template v-if="showWinby" >
+                    <template v-for="(_, winby) in Math.max(0, maximumRemoteness) + 1"
+                            :key="winby">
+                        <text class="remoteness-coordinate"
+                                v-if="!isPuzzleGame && winby % xInterval === 0"
+                                :x="gridLeft + winby * columnWidth"
+                                :y="gridTop - xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ winby }}
+                        </text>
+                        <text class="remoteness-coordinate"
+                                v-if="winby % xInterval === 0"
+                                :x="gridRight - winby * columnWidth"
+                                :y="gridTop - xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ winby }}
+                        </text>
+                        <text class="remoteness-coordinate"
+                                v-if="!isPuzzleGame && winby % xInterval === 0"
+                                :x="gridLeft + winby * columnWidth"
+                                :y="gridBottom + xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ winby }}
+                        </text>
+                        <text class="remoteness-coordinate"
+                                v-if="winby % xInterval === 0"
+                                :x="gridRight - winby * columnWidth"
+                                :y="gridBottom + xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ winby }}
+                        </text>
+                    </template>
                 </template>
+                <template v-else > -->
+                    <template v-for="(_, remoteness) in Math.max(5, maximumRemoteness) + 1"
+                            :key="remoteness">
+                        <text class="remoteness-coordinate"
+                                v-if="!isPuzzleGame &&remoteness % xInterval === 0"
+                                :x="gridLeft + remoteness * columnWidth"
+                                :y="gridTop - xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ remoteness }}
+                        </text>
+                        <text class="remoteness-coordinate"
+                                v-if="remoteness % xInterval === 0"
+                                :x="gridRight - remoteness * columnWidth"
+                                :y="gridTop - xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ remoteness }}
+                        </text>
+                        <text class="remoteness-coordinate"
+                                v-if="!isPuzzleGame && remoteness % xInterval === 0"
+                                :x="gridLeft + remoteness * columnWidth"
+                                :y="gridBottom + xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ remoteness }}
+                        </text>
+                        <text class="remoteness-coordinate"
+                                v-if="remoteness % xInterval === 0"
+                                :x="gridRight - remoteness * columnWidth"
+                                :y="gridBottom + xCoordinateHeight / 2"
+                                dominant-baseline="middle"
+                                text-anchor="middle">
+                            {{ remoteness }}
+                        </text>
+                    </template>
+                <!-- </template> -->
 
                 <!-- Move Coordinates -->
                 <template v-if="currentValuedRoundId >= 2">
@@ -731,9 +773,12 @@
                 <b>Moves</b>
             </p>
         </div>
-        <p class="bottom x-axis-label" v-if="showVvhGuides">
+        <p class="bottom x-axis-label" v-if="showVvhGuides ">
             <b>Remoteness</b>
         </p>
+        <!-- <p class="bottom x-axis-label" v-if="showVvhGuides && showWinby">
+            <b>Winby</b>
+        </p> -->
         <div id="meters" v-if="showVvhMeters">
             <div class="meter">
                 <p class="label">Remoteness Coordinate Height</p>
@@ -782,8 +827,10 @@
 <script lang="ts" setup>
     import { computed, ref } from "vue";
     import { actionTypes, useStore } from "../../scripts/plugins/store";
+    import { mutationTypes} from "../../scripts/plugins/store";
     import VueSlider from "vue-slider-component";
     import "vue-slider-component/theme/default.css";
+    import AppGameVvhHeaderWinbyBody from "./AppGameVvhHeaderWinbyBody.vue";
 
     const store = useStore();
 
@@ -792,6 +839,7 @@
     const showNextMoveHints = computed(() => (options.value ? options.value.showNextMoveHints : true));
     const showVvhGuides = computed(() => (options.value ? options.value.showVvhGuides : true));
     const showVvhMeters = computed(() => (options.value ? options.value.showVvhMeters : false));
+    const showWinby = computed(() => (options.value ? options.value.showWinby: false));
 
     const isPuzzleGame = computed(() => store.getters.currentGameType === "puzzles");
 
@@ -804,6 +852,8 @@
     const currentValuedRounds = computed(() => 
         currentRounds.value.filter(round => round.position.positionValue !== "unsolved")
     );
+    const currentWinby = computed(() => store.getters.currentWinby)
+
     const currentValuedRoundId = computed(() =>
         Math.max(0, currentRoundId.value - currentRounds.value.length + currentValuedRounds.value.length)
     );

@@ -9,7 +9,7 @@
         <div id="app-game-vvh-header-right">
             <AppGameVvhHeaderScrollOptions class="buttons" title="Toggle Scrolling" />
             <AppGameVvhHeaderMetersOptions class="buttons" title="Toggle Options" />
-            <AppGameVvhWinbyOption />
+            <AppGameVvhHeaderWinby class="buttons" title="Toggle Winby"/>
         </div>
     </div>
 </template>
@@ -20,7 +20,7 @@
     import AppGameVvhHeaderScrollOptions from "./AppGameVvhHeaderScrolling.vue";
     import AppGameVvhHeaderInstructions from "./AppGameVvhHeaderInstructions.vue";
     import AppGameVvhHeaderTitle from "./AppGameVvhHeaderTitle.vue";
-    import AppGameVvhWinbyOption from "./AppGameVvhWinbyOption.vue";
+    import AppGameVvhHeaderWinby from "./AppGameVvhHeaderWinby.vue";
 </script>
 
 <style lang="scss" scoped>
