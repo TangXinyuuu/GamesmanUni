@@ -9,7 +9,7 @@
         <div id="app-game-vvh-header-right">
             <AppGameVvhHeaderScrollOptions class="buttons" title="Toggle Scrolling" />
             <AppGameVvhHeaderMetersOptions class="buttons" title="Toggle Options" />
-            <AppGameVvhHeaderWinby class="buttons" title="Toggle Winby"/>
+            <!-- <AppGameVvhHeaderWinby class="buttons" title="Toggle Winby"/> -->
         </div>
     </div>
 </template>

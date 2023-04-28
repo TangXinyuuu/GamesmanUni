@@ -57,6 +57,7 @@ type Getters = {
     isEndOfMatch(state: State): boolean;
     locale(state: State): string;
     maximumRemoteness(state: State): (from: number, to: number) => number;
+    maximumWinby(state: State): (from: number, to: number) => number;
     moveHistory(state: State): string;
     onePlayerGameAPI(state: State): string;
     position(state: State):
@@ -172,6 +173,9 @@ const getters: Vuex.GetterTree<State, State> & Getters = {
     maximumRemoteness: (state: State) =>
         (from: number, to: number) =>
             GMU.getMaximumRemoteness(state.app, { from, to }),
+    maximumWinby: (state: State) =>
+        (from: number, to: number) =>
+            GMU.getMaximumWinby(state.app, { from, to }),
     moveHistory: (state: State) =>
         state.app.currentMatch.moveHistory,
     onePlayerGameAPI: (state: State) =>

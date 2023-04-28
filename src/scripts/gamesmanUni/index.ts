@@ -275,7 +275,7 @@ export const getMaximumWinby = (app: Types.App, payload: { from: number; to: num
     const winbys = new Set<number>();
     winbys.add(5);
     const showWinby = app.options.showWinby;
-    if (showWinby) {
+    //if (showWinby) {
         for (let roundId = payload.from; roundId <= payload.to; roundId++) {
             const round = app.currentMatch.rounds[roundId];
             if (round.position.positionValue !== "draw") winbys.add(round.position.winby);
@@ -288,7 +288,7 @@ export const getMaximumWinby = (app: Types.App, payload: { from: number; to: num
             }
         }
         return Math.max(...winbys);
-    };
+    //};
 };
 
 export const getMaximumRemoteness = (app: Types.App, payload: { from: number; to: number }) => {
