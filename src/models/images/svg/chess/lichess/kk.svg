@@ -1,4 +1,4 @@
-<svg width="45" height="45" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg id="EntitySVG" width="45" height="45" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <!-- Adapted from Lila "staunty" chess pieces by GitHub user sadsnake1 under CC BY-NC-SA 4.0:
       https://creativecommons.org/licenses/by-nc-sa/4.0/.
       The color of the piece has been modified from the original work, which can be found

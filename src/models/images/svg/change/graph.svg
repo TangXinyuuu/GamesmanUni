@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+<svg version="1.1" id="BackgroundSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
     <circle cx="10" cy="17" r="2" fill="gray"/>
     <circle cx="10" cy="35" r="2" fill="gray"/>
     <circle cx="10" cy="53" r="2" fill="gray"/>

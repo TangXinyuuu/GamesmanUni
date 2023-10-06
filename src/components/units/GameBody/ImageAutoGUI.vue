@@ -10,6 +10,11 @@
       :width="scaledWidth"
       :height="scaledHeight"
       :href="getImageSource(backgroundImagePath)"/>
+    <!-- <use v-if="backgroundImagePath != ''" x="0" y="0"
+      :width="scaledWidth"
+      :height="scaledHeight"
+      :href="getImageSource(backgroundImagePath) + '#BackgroundSVG'"
+      /> -->
 
     <!-- Draw M-type (arrow) move buttons below entities -->
     <g v-if="!animationPlaying && entitiesOverArrows"> 
@@ -31,6 +36,15 @@
         :width="entities[cell].scale * widthFactor"
         :height="entities[cell].scale * widthFactor"
         :href="getImageSource(entities[cell].image)"/>
+
+        <!-- <use class="entity" v-if="cell != '-' && cell in entities"
+          :id="'entity' + i"
+          :x="centers[i][0] - 0.5 * entities[cell].scale * widthFactor"
+          :y="centers[i][1] - 0.5 * entities[cell].scale * widthFactor"
+          :width="entities[cell].scale * widthFactor"
+          :height="entities[cell].scale * widthFactor"
+          :href="getImageSource(entities[cell].image) + '#EntitySVG'"
+        /> -->
     </g>
  
     <!-- Draw Foreground Image -->

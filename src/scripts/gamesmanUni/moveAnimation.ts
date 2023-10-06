@@ -138,12 +138,14 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
                     if (appearingChar in entities) {
                         entitiesAppear = true;
                         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+                        //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                         newElement.setAttribute("class", "appearingEntity");
                         newElement.setAttribute("x", (centers[i][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("y", (centers[i][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
+                        //newElement.setAttribute("href", getImageSource(entities[appearingChar].image) + '#EntitySVG');
                         newElement.setAttribute("opacity", "0.001");
                         g.appendChild(newElement);
                     }
@@ -151,11 +153,11 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             }
         }
         if (foregroundImagePath !== "") { // Redraw foreground image in front of any newly introduced entities
-            var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            newElement.setAttribute("width", scaledWidth.toString());
-            newElement.setAttribute("height", scaledHeight.toString());
-            newElement.setAttribute("href", getImageSource(foregroundImagePath));
-            g.appendChild(newElement);
+            var newForeGroundElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+            newForeGroundElement.setAttribute("width", scaledWidth.toString());
+            newForeGroundElement.setAttribute("height", scaledHeight.toString());
+            newForeGroundElement.setAttribute("href", getImageSource(foregroundImagePath));
+            g.appendChild(newForeGroundElement);
         }
         if (entitiesAppear) {
             gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
@@ -202,12 +204,14 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             if (appearingChar in entities) {
                 entitiesAppear = true;
                 var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+                //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                 newElement.setAttribute("class", "appearingEntity");
                 newElement.setAttribute("x", (centers[i][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("y", (centers[i][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
+                //newElement.setAttribute("href", getImageSource(entities[appearingChar].image) + '#EntitySVG');
                 newElement.setAttribute("opacity", "0");
                 g.appendChild(newElement);
             }
@@ -221,25 +225,27 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
 
             movingChar = currBoard[idxFrom];
             if (movingChar in entities) {
-                gsap.fromTo("#entity" + idxFrom, {autoAlpha: 1}, {duration: 0.001, autoAlpha: 0});
+                gsap.fromTo("#entity" + idxFrom, {autoAlpha: 1}, {duration: 0.001, autoAlpha: 0.001});
                 var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+                //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                 newElement.setAttribute("id", "movingEntity" + idxFrom);
                 newElement.setAttribute("x", (fromCoords[0] - 0.5 * entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("y", (fromCoords[1] - 0.5 * entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("width", (entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("height", (entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("href", getImageSource(entities[movingChar].image));
+                //newElement.setAttribute("href", getImageSource(entities[movingChar].image) + '#EntitySVG');
                 g.appendChild(newElement);
                 gsap.to("#movingEntity" + idxFrom, {duration: 0.5, x: toCoords[0] - fromCoords[0], y: toCoords[1] - fromCoords[1]});
             }
         }
 
         if (foregroundImagePath !== "") { // Redraw foreground image in front of any newly introduced entities
-            var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            newElement.setAttribute("width", scaledWidth.toString());
-            newElement.setAttribute("height", scaledHeight.toString());
-            newElement.setAttribute("href", getImageSource(foregroundImagePath));
-            g.appendChild(newElement);
+            var newForeGroundElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+            newForeGroundElement.setAttribute("width", scaledWidth.toString());
+            newForeGroundElement.setAttribute("height", scaledHeight.toString());
+            newForeGroundElement.setAttribute("href", getImageSource(foregroundImagePath));
+            g.appendChild(newForeGroundElement);
         }
         if (fadeInIdxs.length > 0) {
             gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
