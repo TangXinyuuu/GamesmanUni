@@ -47,6 +47,7 @@
           <circle v-if="token.token == '-'"
             :cx="centers[token.to][0]"
             :cy="centers[token.to][1]"
+            :stroke-width="0"
             :r="defaultMoveTokenRadius"
             :class="'app-game-board-default-button ' + (token.move ? 'move ' : '') + getBoardMoveElementHintClass(token.move)"
             :opacity="options.showNextMoveHints && options.showNextMoveDeltaRemotenesses ? token.move.hintOpacity : 1"
@@ -55,23 +56,17 @@
           
           <!-- Else use the svg corresponding to the move token. If no svg is mapped to the character, skip. -->
           <g v-else-if="token.token in entities">
-            <mask :id="'svgmask' + i">
-              <image
-                :x="centers[token.to][0] - 0.5 * entities[token.token].scale * widthFactor"
-                :y="centers[token.to][1] - 0.5 * entities[token.token].scale * widthFactor"
-                :width="entities[token.token].scale * widthFactor"
-                :height="entities[token.token].scale * widthFactor"
-                :href="getImageSource(entities[token.token].image)"/>
-            </mask>
-            <rect
+            <use 
               :x="centers[token.to][0] - 0.5 * entities[token.token].scale * widthFactor"
               :y="centers[token.to][1] - 0.5 * entities[token.token].scale * widthFactor"
               :width="entities[token.token].scale * widthFactor" 
               :height="entities[token.token].scale * widthFactor"
               :class="'app-game-board-default-button ' + (token.move ? 'move ' : '') + getBoardMoveElementHintClass(token.move)"
               :opacity="options.showNextMoveHints && options.showNextMoveDeltaRemotenesses ? token.move.hintOpacity : 1"
-              :style="'--tOrigin: ' + centers[token.to][0] + 'px ' + centers[token.to][1] + 'px;mask: url(#svgmask' + i + ');'"
-              @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: token.move.str })"/>
+              :style="'--tOrigin: ' + centers[token.to][0] + 'px ' + centers[token.to][1] + 'px'"
+              :href="getImageSource(entities[token.token].image) + '#MoveButtonSVG'"
+              @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: token.move.str })"
+            />
           </g>
         </g>
       </g>
@@ -318,15 +313,15 @@
     cursor: default;
     transform-origin: var(--tOrigin);
     
-    [data-turn="A"] &.move { fill: var(--turn1Color); }
-    [data-turn="B"] &.move { fill: var(--turn2Color); }
+    [data-turn="A"] &.move { fill: var(--turn1Color); stroke: var(--turn1Color); }
+    [data-turn="B"] &.move { fill: var(--turn2Color); stroke: var(--turn1Color); }
 
     &.move.hint- {
-      &win      { fill: var(--winColor); }
-      &draw     { fill: var(--drawColor); }
-      &tie      { fill: var(--tieColor); }
-      &lose     { fill: var(--loseColor); }
-      &unsolved { fill: var(--unsolvedColor); }
+      &win      { fill: var(--winColor); stroke: var(--winColor); }
+      &draw     { fill: var(--drawColor); stroke: var(--drawColor); }
+      &tie      { fill: var(--tieColor); stroke: var(--tieColor); }
+      &lose     { fill: var(--loseColor); stroke: var(--loseColor); }
+      &unsolved { fill: var(--unsolvedColor); stroke: var(--unsolvedColor); }
     }
 
     &:hover {
