@@ -225,7 +225,7 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
 
             movingChar = currBoard[idxFrom];
             if (movingChar in entities) {
-                gsap.fromTo("#entity" + idxFrom, {autoAlpha: 1}, {duration: 0.001, autoAlpha: 0.001});
+                gsap.fromTo("#entity" + idxFrom, {autoAlpha: 1}, {duration: 0.001, autoAlpha: 0});
                 var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
                 //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                 newElement.setAttribute("id", "movingEntity" + idxFrom);

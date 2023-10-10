@@ -10,11 +10,6 @@
       :width="scaledWidth"
       :height="scaledHeight"
       :href="getImageSource(backgroundImagePath)"/>
-    <!-- <use v-if="backgroundImagePath != ''" x="0" y="0"
-      :width="scaledWidth"
-      :height="scaledHeight"
-      :href="getImageSource(backgroundImagePath) + '#BackgroundSVG'"
-      /> -->
 
     <!-- Draw M-type (arrow) move buttons below entities -->
     <g v-if="!animationPlaying && entitiesOverArrows"> 
@@ -36,15 +31,6 @@
         :width="entities[cell].scale * widthFactor"
         :height="entities[cell].scale * widthFactor"
         :href="getImageSource(entities[cell].image)"/>
-
-        <!-- <use class="entity" v-if="cell != '-' && cell in entities"
-          :id="'entity' + i"
-          :x="centers[i][0] - 0.5 * entities[cell].scale * widthFactor"
-          :y="centers[i][1] - 0.5 * entities[cell].scale * widthFactor"
-          :width="entities[cell].scale * widthFactor"
-          :height="entities[cell].scale * widthFactor"
-          :href="getImageSource(entities[cell].image) + '#EntitySVG'"
-        /> -->
     </g>
  
     <!-- Draw Foreground Image -->
@@ -56,20 +42,9 @@
     <g v-if="!animationPlaying">
       <!-- Draw A-type move buttons. -->
       <g v-for="(token, i) in richPositionData.tokens" :key="'token' + i">
-        <g v-if="token.move">
-          <!-- If no move token specified, use default move button (a circle). -->
-          <circle v-if="token.token == '-'"
-            :cx="centers[token.to][0]"
-            :cy="centers[token.to][1]"
-            :stroke-width="0"
-            :r="defaultMoveTokenRadius"
-            :class="'app-game-board-default-button ' + (token.move ? 'move ' : '') + getBoardMoveElementHintClass(token.move)"
-            :opacity="options.showNextMoveHints && options.showNextMoveDeltaRemotenesses ? token.move.hintOpacity : 1"
-            :style="'--tOrigin: ' + centers[token.to][0] + 'px ' + centers[token.to][1] + 'px;'"
-            @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: token.move.str })"/>
-          
-          <!-- Else use the svg corresponding to the move token. If no svg is mapped to the character, skip. -->
-          <g v-else-if="token.token in entities">
+        <g v-if="token.move">  
+          <!-- Use svg corresponding to move token. If no svg is mapped to the character, skip. -->
+          <g v-if="token.token in entities">
             <use 
               :x="centers[token.to][0] - 0.5 * entities[token.token].scale * widthFactor"
               :y="centers[token.to][1] - 0.5 * entities[token.token].scale * widthFactor"
@@ -82,6 +57,17 @@
               @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: token.move.str })"
             />
           </g>
+
+          <!-- If no move token specified, use default move button (a circle). -->
+          <circle v-else
+            :cx="centers[token.to][0]"
+            :cy="centers[token.to][1]"
+            :stroke-width="0"
+            :r="defaultMoveTokenRadius"
+            :class="'app-game-board-default-button ' + (token.move ? 'move ' : '') + getBoardMoveElementHintClass(token.move)"
+            :opacity="options.showNextMoveHints && options.showNextMoveDeltaRemotenesses ? token.move.hintOpacity : 1"
+            :style="'--tOrigin: ' + centers[token.to][0] + 'px ' + centers[token.to][1] + 'px;'"
+            @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: token.move.str })"/>
         </g>
       </g>
 

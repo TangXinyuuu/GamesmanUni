@@ -5,23 +5,24 @@
             font: 3px monospace;
         }
     </style>
-    <rect x="5" y="5" width="40" height="40" stroke="black" stroke-width="0.5" fill="#a1cfab" />
+     <rect x="0" y="0" width="50" height="60" stroke="none" fill="#93c59f" />
+    <rect x="5" y="5" width="40" height="40" stroke="black" stroke-width="0.4" fill="#c8efd1" />
 
-    <line x1="15" y1="5" x2="15" y2="45" stroke="black" stroke-width="0.5" />
-    <line x1="25" y1="5" x2="25" y2="45" stroke="black" stroke-width="0.5" />
-    <line x1="35" y1="5" x2="35" y2="45" stroke="black" stroke-width="0.5" />
+    <line x1="15" y1="5" x2="15" y2="45" stroke="black" stroke-width="0.25" />
+    <line x1="25" y1="5" x2="25" y2="45" stroke="black" stroke-width="0.25" />
+    <line x1="35" y1="5" x2="35" y2="45" stroke="black" stroke-width="0.25" />
 
-    <line x1="5" y1="15" x2="45" y2="15" stroke="black" stroke-width="0.5" />
-    <line x1="5" y1="25" x2="45" y2="25" stroke="black" stroke-width="0.5" />
-    <line x1="5" y1="35" x2="45" y2="35" stroke="black" stroke-width="0.5" />
+    <line x1="5" y1="15" x2="45" y2="15" stroke="black" stroke-width="0.25" />
+    <line x1="5" y1="25" x2="45" y2="25" stroke="black" stroke-width="0.25" />
+    <line x1="5" y1="35" x2="45" y2="35" stroke="black" stroke-width="0.25" />
 
-    <line x1="5" y1="5" x2="45" y2="45" stroke="black" stroke-width="0.5" />
-    <line x1="45" y1="5" x2="5" y2="45" stroke="black" stroke-width="0.5" />
+    <line x1="5" y1="5" x2="45" y2="45" stroke="black" stroke-width="0.25" />
+    <line x1="45" y1="5" x2="5" y2="45" stroke="black" stroke-width="0.25" />
 
-    <line x1="5" y1="25" x2="25" y2="5" stroke="black" stroke-width="0.5" />
-    <line x1="45" y1="25" x2="25" y2="5" stroke="black" stroke-width="0.5" />
-    <line x1="45" y1="25" x2="25" y2="45" stroke="black" stroke-width="0.5" />
-    <line x1="5" y1="25" x2="25" y2="45" stroke="black" stroke-width="0.5" />
+    <line x1="5" y1="25" x2="25" y2="5" stroke="black" stroke-width="0.25" />
+    <line x1="45" y1="25" x2="25" y2="5" stroke="black" stroke-width="0.25" />
+    <line x1="45" y1="25" x2="25" y2="45" stroke="black" stroke-width="0.25" />
+    <line x1="5" y1="25" x2="25" y2="45" stroke="black" stroke-width="0.25" />
 
     <text x="8.5" y="53" class="small">Goats To Place:</text>
     <text x="8.5" y="56.5" class="small">Goats Captured:</text>
