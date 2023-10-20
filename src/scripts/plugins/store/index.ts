@@ -55,7 +55,6 @@ type Getters = {
         (gameType: string, gameId: string, variantId: string) => ImageAutoGUIData;
     isEndOfMatch(state: State): boolean;
     locale(state: State): string;
-    maximumRemoteness(state: State): (from: number, to: number) => number;
     moveHistory(state: State): string;
     onePlayerGameAPI(state: State): string;
     position(state: State):
@@ -168,9 +167,6 @@ const getters: Vuex.GetterTree<State, State> & Getters = {
         GMU.isEndOfMatch(state.app),
     locale: (state: State) =>
         state.app.preferences.locale,
-    maximumRemoteness: (state: State) =>
-        (from: number, to: number) =>
-            GMU.getMaximumRemoteness(state.app, { from, to }),
     moveHistory: (state: State) =>
         state.app.currentMatch.moveHistory,
     onePlayerGameAPI: (state: State) =>

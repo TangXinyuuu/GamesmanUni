@@ -4,7 +4,7 @@
             <p v-if="!isPuzzleGame && currentPositionValue === 'draw'">
                 <b class="uni-turn-1">{{ currentLeftPlayerName }}</b> and 
                 <b class="uni-turn-2">{{ currentRightPlayerName }}</b> are in a 
-                <mark :class="`uni-${currentPositionValue}`">draw</mark>!
+                <mark :class="`uni-${currentPositionValue}`">draw</mark>.
             </p>
             <p v-else-if="!isPuzzleGame && currentPositionValue === 'unsolved'">
                 <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b>'s
@@ -13,8 +13,8 @@
             <p v-else-if="!isPuzzleGame">
                 <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
                 <mark :class="`uni-${currentPositionValue}`">{{ currentPositionValue }}</mark> 
-                the game in {{ currentRemoteness }} 
-                move<span v-if="currentRemoteness !== 1">s</span>. {{ mexStr }}
+                the game<span v-if="currentRemoteness != -100"> in {{ currentRemoteness }} 
+                move<span v-if="currentRemoteness !== 1">s</span></span>. {{ mexStr }}
             </p>
             <p v-else>
                 <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 

@@ -79,23 +79,25 @@
                 <text class="draw-symbol" :x="isPuzzleGame ? gridLeft : chartWidth / 2"
                                           :y="gridTop - xCoordinateHeight / 2"
                                           dominant-baseline="middle"
-                                          text-anchor="middle">D</text>
+                                          text-anchor="middle">{{ isPuzzleGame ? 'F' : 'D' }}</text>
                 <text class="draw-symbol" :x="isPuzzleGame ? gridLeft : chartWidth / 2"
                                           :y="gridBottom + xCoordinateHeight / 2"
                                           dominant-baseline="middle"
-                                          text-anchor="middle">D</text>
+                                          text-anchor="middle">{{ isPuzzleGame ? 'F' : 'D' }}</text>
 
                 <!-- Remoteness Coordinates -->
-                <template v-for="(_, remoteness) in Math.max(5, maximumRemoteness) + 1"
+                <template v-for="(_, remoteness) in Math.max(0, adjustedMaximumRemoteness) + 1"
                         :key="remoteness">
+                    <!-- Top Left -->
                     <text class="remoteness-coordinate"
-                            v-if="!isPuzzleGame &&remoteness % xInterval === 0"
+                            v-if="!isPuzzleGame && remoteness % xInterval === 0"
                             :x="gridLeft + remoteness * columnWidth"
                             :y="gridTop - xCoordinateHeight / 2"
                             dominant-baseline="middle"
                             text-anchor="middle">
                         {{ remoteness }}
                     </text>
+                    <!-- Top Right -->
                     <text class="remoteness-coordinate"
                             v-if="remoteness % xInterval === 0"
                             :x="gridRight - remoteness * columnWidth"
@@ -104,6 +106,7 @@
                             text-anchor="middle">
                         {{ remoteness }}
                     </text>
+                    <!-- Bottom Left -->
                     <text class="remoteness-coordinate"
                             v-if="!isPuzzleGame && remoteness % xInterval === 0"
                             :x="gridLeft + remoteness * columnWidth"
@@ -112,6 +115,7 @@
                             text-anchor="middle">
                         {{ remoteness }}
                     </text>
+                    <!-- Bottom Right -->
                     <text class="remoteness-coordinate"
                             v-if="remoteness % xInterval === 0"
                             :x="gridRight - remoteness * columnWidth"
@@ -121,8 +125,33 @@
                         {{ remoteness }}
                     </text>
                 </template>
+                <!-- Unknown Remoteness Remoteness Coordinates -->
+                <template v-if="finiteUnknownRemotenessExists">
+                    <text class="remoteness-coordinate"
+                            v-if="!isPuzzleGame"
+                            :x="gridLeft + maximumRemoteness * columnWidth"
+                            :y="gridTop - xCoordinateHeight / 2"
+                            dominant-baseline="middle"
+                            text-anchor="middle">?</text>
+                    <text class="remoteness-coordinate"
+                            :x="gridRight - maximumRemoteness * columnWidth"
+                            :y="gridTop - xCoordinateHeight / 2"
+                            dominant-baseline="middle"
+                            text-anchor="middle">?</text>
+                    <text class="remoteness-coordinate"
+                            v-if="!isPuzzleGame"
+                            :x="gridLeft + maximumRemoteness * columnWidth"
+                            :y="gridBottom + xCoordinateHeight / 2"
+                            dominant-baseline="middle"
+                            text-anchor="middle">?</text>
+                    <text class="remoteness-coordinate"
+                            :x="gridRight - maximumRemoteness * columnWidth"
+                            :y="gridBottom + xCoordinateHeight / 2"
+                            dominant-baseline="middle"
+                            text-anchor="middle">?</text>
+                </template>
 
-                <!-- Move Coordinates -->
+                <!-- Move Coordinates (Move Names) -->
                 <template v-if="currentValuedRoundId >= 2">
                     <template v-for="roundNumber in currentValuedRoundId - 1"
                             :key="roundNumber">
@@ -192,9 +221,6 @@
                         </template>
                     </template>
                 </template>
-
-                <!-- Grid Base -->
-                <rect id="grid-base" :x="gridLeft" :y="gridTop" :width="gridWidth" :height="gridHeight" />
 
                 <!-- Round Rows -->
                 <template v-if="currentValuedRoundId >= 1">
@@ -469,7 +495,7 @@
 
                 <!-- Link from Current Position Value to Next Moves' Position Value -->
                 <template v-if="showNextMoves && currentValuedRounds[currentValuedRoundId]">
-                    <template v-for="nextMove in currentValuedRounds[currentValuedRoundId].position.availableMoves">
+                    <template v-for="nextMove in currentValuedRounds[currentValuedRoundId].position.availableMoves" :key="nextMove">
                         <template v-if="currentValuedRounds[currentValuedRoundId].position.positionValue === 'draw'">
                             <template v-if="nextMove.moveValue === 'draw'">
                                 <line :class="`${nextMove.moveValue} link`"
@@ -770,7 +796,7 @@
             </div>
             <div class="meter">
                 <p class="label">Remoteness Interval</p>
-                <VueSlider v-model="xInterval" :min="1" :max="maximumRemoteness" :tooltip="'active'" />
+                <VueSlider v-model="xInterval" :min="1" :max="Math.max(5, adjustedMaximumRemoteness)" :tooltip="'active'" />
             </div>
         </div>
     </div>
@@ -781,6 +807,7 @@
     import { actionTypes, useStore } from "../../../scripts/plugins/store";
     import VueSlider from "vue-slider-component";
     import "vue-slider-component/theme/default.css";
+    import { Rounds } from "../../../scripts/gamesmanUni/types";
 
     const store = useStore();
 
@@ -798,15 +825,77 @@
     const currentRoundId = computed(() => store.getters.currentRoundId);
     const currentPositionValue = computed(() => store.getters.currentPositionValue);
     const currentRounds = computed(() => store.getters.currentRounds);
-    const currentValuedRounds = computed(() => 
-        currentRounds.value.filter(round => round.position.positionValue !== "unsolved")
-    );
+    const currentFirstPlayerTurn = computed(() => store.getters.currentMatch.round.firstPlayerTurn);
+
+    // need to get max remoteness and whether there are unknown finites.
+    const getMaximumRemoteness = computed(() => {
+        const remotenesses = new Set<number>();
+        var finiteUnknownRemotenessExists = false;
+        var infiniteNonDrawRemotenessExists = false;
+        for (let roundId = 1; roundId <= store.getters.currentRoundId; roundId++) {
+            const position = currentRounds.value[roundId].position;
+            if (position.positionValue !== "draw" && position.positionValue !== "unsolved") {
+                if (position.remoteness == -100) { // FINITE UNKNOWN
+                    finiteUnknownRemotenessExists = true;
+                } else if (position.remoteness == -200) { // INFINITY
+                    infiniteNonDrawRemotenessExists = true;
+                } else {
+                    remotenesses.add(Number(position.remoteness));
+                }
+            }
+            if (options.value.showNextMoves) {
+                for (const move in position.availableMoves) {
+                    const moveObj = position.availableMoves[move]
+                    if (moveObj.positionValue !== "draw" && moveObj.positionValue !== "unsolved") {
+                        if (moveObj.remoteness == -100) { // FINITE UNKNOWN
+                            finiteUnknownRemotenessExists = true;
+                        } else if (moveObj.remoteness == -200) { // INFINITY
+                            infiniteNonDrawRemotenessExists = true;
+                        } else {
+                            remotenesses.add(Number(moveObj.remoteness));
+                        }
+                    }
+                }
+            }
+        }
+ 
+        remotenesses.add(0); // So that max doesn't error if list is empty
+        var maxRemoteness = Math.max(...remotenesses);
+        if (finiteUnknownRemotenessExists) {
+            maxRemoteness += 1;
+        }
+        return [maxRemoteness, finiteUnknownRemotenessExists, infiniteNonDrawRemotenessExists];
+    });
+
+    const maximumRemoteness = computed(() => Number(getMaximumRemoteness.value[0]));
+    const finiteUnknownRemotenessExists = computed(() => Boolean(getMaximumRemoteness.value[1]));
+    const infiniteNonDrawRemotenessExists = computed(() => Boolean(getMaximumRemoteness.value[2]));
+
+    const adjustedMaximumRemoteness = computed(() => finiteUnknownRemotenessExists.value ? maximumRemoteness.value - 1 : maximumRemoteness.value);
+
+    const currentValuedRounds = computed(() => {
+        var copy = JSON.parse(JSON.stringify(currentRounds.value)) as Rounds;
+
+        for (const round of copy) {
+            if (round.position.positionValue !== "unsolved") {
+                if (round.position.remoteness == -100) {
+                    round.position.remoteness = maximumRemoteness.value;
+                }
+                for (const move in round.position.availableMoves) {
+                    const moveObj = round.position.availableMoves[move]
+                    if (moveObj.remoteness == -100) {
+                        moveObj.remoteness = maximumRemoteness.value;
+                    }
+                }
+            }
+        }
+        return copy.filter(round => round.position.positionValue !== "unsolved");
+    });
+
     const currentValuedRoundId = computed(() =>
         Math.max(0, currentRoundId.value - currentRounds.value.length + currentValuedRounds.value.length)
     );
-    const currentFirstPlayerTurn = computed(() => store.getters.currentMatch.round.firstPlayerTurn);
 
-    const maximumRemoteness = computed(() => store.getters.maximumRemoteness(1, store.getters.currentRoundId));
     const isEndOfMatch = computed(() => store.getters.isEndOfMatch);
 
     const winningDirectionHeight = ref(2);
@@ -820,7 +909,7 @@
 
     const yCoordinateWidth = ref(5);
     const chartWidth = ref(50);
-    const columnCount = computed(() => (isPuzzleGame.value ? 1 : 2) * (Math.max(5, maximumRemoteness.value) + 1));
+    const columnCount = computed(() => (isPuzzleGame.value ? 1 : 2) * (Math.max(1, maximumRemoteness.value) + 1));
     const gridWidth = computed(() => chartWidth.value - 2 * yCoordinateWidth.value);
     const columnWidth = computed(() => gridWidth.value / columnCount.value);
     const gridLeft = computed(() => yCoordinateWidth.value);

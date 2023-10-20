@@ -271,23 +271,6 @@ const loadVariant = async (app: Types.App, payload: { gameType: string; gameId: 
     };
 };
 
-export const getMaximumRemoteness = (app: Types.App, payload: { from: number; to: number }) => {
-    const remotenesses = new Set<number>();
-    remotenesses.add(5); // In case all involved positions are draw, 5 shall be the default maximum remoteness.
-    for (let roundId = payload.from; roundId <= payload.to; roundId++) {
-        const round = app.currentMatch.rounds[roundId];
-        if (round.position.positionValue !== "draw") remotenesses.add(round.position.remoteness);
-        if (app.options.showNextMoves) {
-            for (const availableMove in round.position.availableMoves) {
-                if (round.position.availableMoves[availableMove].positionValue !== "draw") {
-                    remotenesses.add(round.position.availableMoves[availableMove].remoteness);
-                }
-            }
-        }
-    }
-    return Math.max(...remotenesses);
-};
-
 export const isEndOfMatch = (app: Types.App) =>
     !app.currentMatch.round.position.remoteness ||
     !Object.keys(app.currentMatch.round.position.availableMoves).length;
