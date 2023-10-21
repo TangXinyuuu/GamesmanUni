@@ -111,7 +111,6 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
     const scaledHeight = backgroundGeometry[1] * widthFactor;
     const animationType = theTheme.animationType || "";
     const entities = theTheme.entities;
-    const sounds = theTheme.sounds || {} as Record<string, string>;
     const centers = theTheme.centers.map((a: [number, number]) => a.map((b: number) => b * widthFactor));
     const getImageSource = (imagePath: string) => gimages["../../models/images/svg/" + imagePath].default;
     const foregroundImagePath = theTheme.foreground || "";
@@ -138,14 +137,12 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
                     if (appearingChar in entities) {
                         entitiesAppear = true;
                         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-                        //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                         newElement.setAttribute("class", "appearingEntity");
                         newElement.setAttribute("x", (centers[i][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("y", (centers[i][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
                         newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
-                        //newElement.setAttribute("href", getImageSource(entities[appearingChar].image) + '#EntitySVG');
                         newElement.setAttribute("opacity", "0.001");
                         g.appendChild(newElement);
                     }
@@ -161,12 +158,6 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
         }
         if (entitiesAppear) {
             gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
-        }
-        let matches;
-        if (matches = moveObj.move.match(/^([AML])_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)*/)) {
-            if (matches[4] in sounds) {
-                playAudio(sounds[matches[4]], volume);
-            }
         }
         return 500;
     } else if (animationType === "simpleSlides") {
@@ -204,14 +195,12 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             if (appearingChar in entities) {
                 entitiesAppear = true;
                 var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-                //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                 newElement.setAttribute("class", "appearingEntity");
                 newElement.setAttribute("x", (centers[i][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("y", (centers[i][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
                 newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
-                //newElement.setAttribute("href", getImageSource(entities[appearingChar].image) + '#EntitySVG');
                 newElement.setAttribute("opacity", "0");
                 g.appendChild(newElement);
             }
@@ -227,14 +216,12 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             if (movingChar in entities) {
                 gsap.fromTo("#entity" + idxFrom, {autoAlpha: 1}, {duration: 0.001, autoAlpha: 0});
                 var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-                //var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'use');
                 newElement.setAttribute("id", "movingEntity" + idxFrom);
                 newElement.setAttribute("x", (fromCoords[0] - 0.5 * entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("y", (fromCoords[1] - 0.5 * entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("width", (entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("height", (entities[movingChar].scale * widthFactor).toString());
                 newElement.setAttribute("href", getImageSource(entities[movingChar].image));
-                //newElement.setAttribute("href", getImageSource(entities[movingChar].image) + '#EntitySVG');
                 g.appendChild(newElement);
                 gsap.to("#movingEntity" + idxFrom, {duration: 0.5, x: toCoords[0] - fromCoords[0], y: toCoords[1] - fromCoords[1]});
             }
@@ -249,12 +236,6 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
         }
         if (fadeInIdxs.length > 0) {
             gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
-        }
-        let matches;
-        if (matches = moveObj.move.match(/^([AML])_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)*/)) {
-            if (matches[4] in sounds) {
-                playAudio(sounds[matches[4]], volume);
-            }
         }
         return 500
     } else if (animationType === "custom") {
@@ -277,7 +258,16 @@ export const handleMoveAnimation = (volume: number, currentMatch: Types.Match, m
         const imageAutoGUIData = store.getters.imageAutoGUIData(store.getters.currentGameType, 
             store.getters.currentGameId, store.getters.currentVariantId);
         if (imageAutoGUIData != null) {
-            return animateImageAutoGUI(volume, currPosition, nextPosition, moveObj);
+            var theTheme = imageAutoGUIData.themes[store.getters.currentGameTheme];
+            const sounds = theTheme.sounds || {} as Record<string, string>;
+            var duration = animateImageAutoGUI(volume, currPosition, nextPosition, moveObj);
+            let matches;
+            if (matches = moveObj.move.match(/^([AML])_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)_([a-zA-Z0-9-]+)*/)) {
+                if (matches[4] in sounds) {
+                    playAudio(sounds[matches[4]], volume);
+                }
+            }
+            return duration;
         }
         return 0;
     }

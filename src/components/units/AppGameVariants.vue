@@ -40,21 +40,30 @@
         }
     });
     const getLogoSource = (variantId: string) => {
-        const images = import.meta.globEager("../../models/images/thumbnail/*.png");
-        const logo = import.meta.globEager("../../models/images/logo-gamescrafters.png");
-        const appLogoFilePath = "../../models/images/logo-gamescrafters.png";
-        const regularThumbnailFilePath = `../../models/images/thumbnail/${gameId.value}-regular.png`;
-        const VariantThumbnailFilePath = `../../models/images/thumbnail/${gameId.value}-${variantId}.png`;
+        const images = import.meta.globEager("../../models/images/thumbnail/*");
         try {
-            return images[VariantThumbnailFilePath].default;
+            const variantThumbnailSVGPath = `../../models/images/thumbnail/${gameId.value}-${variantId}.svg`;
+            return images[variantThumbnailSVGPath].default;
         } catch (errorMessage) {
-            //console.warn(`${gameId.value} game's ${variantId} variant logo does not exist yet.`);
             try {
-                return images[regularThumbnailFilePath].default;
+                const variantThumbnailFilePath = `../../models/images/thumbnail/${gameId.value}-${variantId}.png`;
+                return images[variantThumbnailFilePath].default;
             } catch (errorMessage) {
-                //console.warn(`${gameId.value} game's regular variant logo does not exist yet.`);
+                try {
+                    const regularThumbnailSVGPath = `../../models/images/thumbnail/${gameId.value}-regular.svg`;
+                    return images[regularThumbnailSVGPath].default;
+                } catch (errorMessage) {
+                    try {
+                        const regularThumbnailFilePath = `../../models/images/thumbnail/${gameId.value}-regular.png`;
+                        return images[regularThumbnailFilePath].default;
+                    } catch (errorMessage) {
+
+                    }
+                }
             }
         }
+        const logo = import.meta.globEager("../../models/images/logo-gamescrafters.png");
+        const appLogoFilePath = "../../models/images/logo-gamescrafters.png";
         return logo[appLogoFilePath].default;
     };
     const customBoardRoute = () => {
