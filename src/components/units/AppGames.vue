@@ -60,6 +60,9 @@ const getLogoSource = (game: Game) => {
 
         }
     }
+    const logo = import.meta.globEager("../../models/images/logo-gamescrafters.png");
+    const appLogoFilePath = "../../models/images/logo-gamescrafters.png";
+    return logo[appLogoFilePath].default;
 }
 const gameType = computed(() => route.params.type as string);
 const gameTypeTitle = computed(() => gameType.value[0].toUpperCase() + gameType.value.slice(1));

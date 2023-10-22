@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 27.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1"
-	 id="svg2989" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-16.5 -9.4 133 118.8"
-	 style="enable-background:new 0 0 113.5 106.4;" xml:space="preserve">
-<style type="text/css">
-	.st0{opacity:0.5;}
-	.st1{fill:#FF0000;stroke:#000000;stroke-width:1.0101;}
-</style>
-<polyline class="st0" points="30.3,101.2 40.7,106.2 82.2,106.2 113.3,76.1 113.3,36 82.2,5.9 73.3,0.9 "/>
-<path class="st1" d="M29.9,0.6h42.4l28.3,29.3v42.4l-28.3,28.3H29.9L0.6,72.4V29.9L29.9,0.6z"/>
-<g>
-
-</g>
+<svg id="MoveButtonSVG" xmlns="http://www.w3.org/2000/svg" viewBox="-200 -200 775 775">
+    <circle cx="187.5" cy="187.5" r="147.5" stroke="white" stroke-width="100" fill="none" opacity="0.001"/>
+    <path d="M 302.566406 72.679688 C 273.167969 43.183594 232.582031 24.871094 187.621094 24.871094 C 97.703125 24.871094 25.074219 97.703125 25.074219 187.621094 C 25.074219 277.542969 97.703125 350.371094 187.621094 350.371094 C 263.402344 350.371094 326.875 298.496094 344.878906 228.308594 L 302.566406 228.308594 C 285.78125 275.710938 240.820312 309.683594 187.621094 309.683594 C 120.183594 309.683594 65.558594 255.0625 65.558594 187.621094 C 65.558594 120.183594 120.183594 65.558594 187.621094 65.558594 C 221.292969 65.558594 251.5 79.597656 273.574219 101.671875 L 232.964844 142.277344 L 350.371094 167.277344 L 340.371094 34.871094 Z M 302.566406 72.679688 " fill-opacity="1" fill-rule="nonzero"/>    
 </svg>
