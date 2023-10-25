@@ -3,8 +3,8 @@
         <template v-if="!isEndOfMatch">
             <template v-if="isPuzzleGame">
                 <p v-if="currentPositionValue === 'lose'">
-                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
-                    <mark :class="`uni-lose`">fail</mark> the puzzle.
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> is 
+                    <mark :class="`uni-lose`">failing</mark> the puzzle.
                 </p>
                 <p v-else>
                     <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
