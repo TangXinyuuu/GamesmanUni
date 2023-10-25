@@ -180,7 +180,7 @@
                                     :y="gridTop + currentValuedRoundId * rowHeight - rowHeight / 2"
                                     dominant-baseline="middle"
                                     text-anchor="middle">
-                                🥳
+                                {{ currentPositionValue === "win" ? "🥳" : "😢" }}
                             </text>
                         </template>
                         <template v-else-if="currentPositionValue === 'tie'">
@@ -266,8 +266,9 @@
                     <template v-for="roundNumber in currentValuedRoundId" :key="roundNumber">
                         <template v-for="nextMove in currentValuedRounds[roundNumber].position.availableMoves"
                                 :key="nextMove.move">
-                            <template v-if="nextMove.moveValue === 'draw'">
-                                <circle :class="{ clickable: roundNumber === currentValuedRoundId, draw: showNextMoveHints }"
+                            <template v-if="nextMove.moveValue === 'draw' || nextMove.remoteness == -200">
+                                <circle :class="[roundNumber === currentValuedRoundId ? 'clickable' : '',
+                                                 showNextMoveHints ? nextMove.positionValue : '']"
                                     class="next-move-position-value"
                                     :cx="isPuzzleGame ? gridLeft : chartWidth / 2"
                                     :cy="gridTop + roundNumber * rowHeight + rowHeight / 2"
@@ -316,8 +317,8 @@
                 <!-- Position Value Links -->
                 <template v-if="currentValuedRoundId >= 2">
                     <template v-for="roundNumber in currentValuedRoundId - 1" :key="roundNumber">
-                        <template v-if="currentValuedRounds[roundNumber].position.positionValue === 'draw'">
-                            <template v-if="currentValuedRounds[roundNumber + 1].position.positionValue === 'draw'">
+                        <template v-if="currentValuedRounds[roundNumber].position.positionValue === 'draw' || currentValuedRounds[roundNumber].position.remoteness == -200">
+                            <template v-if="currentValuedRounds[roundNumber + 1].position.positionValue === 'draw' || currentValuedRounds[roundNumber + 1].position.remoteness == -200">
                                 <line :class="`${currentValuedRounds[roundNumber].moveValue} link`"
                                     :x1="isPuzzleGame ? gridLeft : chartWidth / 2"
                                     :y1="gridTop + roundNumber * rowHeight - rowHeight / 2"
@@ -358,7 +359,7 @@
                             </template>
                         </template>
                         <template v-else-if="currentValuedRounds[roundNumber].position.positionValue === 'tie'">
-                            <template v-if="currentValuedRounds[roundNumber + 1].position.positionValue === 'draw'">
+                            <template v-if="currentValuedRounds[roundNumber + 1].position.positionValue === 'draw' || currentValuedRounds[roundNumber + 1].position.remoteness == -200">
                                 <line v-if="!isPuzzleGame"
                                     :class="`${currentValuedRounds[roundNumber].moveValue} link`"
                                     :x1="gridLeft + currentValuedRounds[roundNumber].position.remoteness * columnWidth"
@@ -419,7 +420,7 @@
                             </template>
                         </template>
                         <template v-else>
-                            <template v-if="currentValuedRounds[roundNumber + 1].position.positionValue === 'draw'">
+                            <template v-if="currentValuedRounds[roundNumber + 1].position.positionValue === 'draw' || currentValuedRounds[roundNumber + 1].position.remoteness == -200">
                                 <line :class="`${currentValuedRounds[roundNumber].moveValue} link`"
                                     :x1="isPuzzleGame ?
                                         gridRight - currentValuedRounds[roundNumber].position.remoteness * columnWidth :
@@ -496,8 +497,8 @@
                 <!-- Link from Current Position Value to Next Moves' Position Value -->
                 <template v-if="showNextMoves && currentValuedRounds[currentValuedRoundId]">
                     <template v-for="nextMove in currentValuedRounds[currentValuedRoundId].position.availableMoves" :key="nextMove">
-                        <template v-if="currentValuedRounds[currentValuedRoundId].position.positionValue === 'draw'">
-                            <template v-if="nextMove.moveValue === 'draw'">
+                        <template v-if="currentValuedRounds[currentValuedRoundId].position.positionValue === 'draw' || currentValuedRounds[currentValuedRoundId].position.remoteness == -200">
+                            <template v-if="nextMove.moveValue === 'draw' || nextMove.remoteness == -200">
                                 <line :class="`${nextMove.moveValue} link`"
                                     :x1="isPuzzleGame ? gridLeft : chartWidth / 2"
                                     :y1="gridTop + currentValuedRoundId * rowHeight - rowHeight / 2"
@@ -538,7 +539,7 @@
                             </template>
                         </template>
                         <template v-else-if="currentValuedRounds[currentValuedRoundId].position.positionValue === 'tie'">
-                            <template v-if="nextMove.moveValue === 'draw'">
+                            <template v-if="nextMove.moveValue === 'draw' || nextMove.remoteness == -200">
                                 <line v-if="!isPuzzleGame"
                                     :class="`${nextMove.moveValue} link`"
                                     :x1="gridLeft + currentValuedRounds[currentValuedRoundId].position.remoteness * columnWidth"
@@ -601,7 +602,7 @@
                             </template>
                         </template>
                         <template v-else>
-                            <template v-if="nextMove.moveValue === 'draw'">
+                            <template v-if="nextMove.moveValue === 'draw' || nextMove.remoteness == -200">
                                 <line :class="`${nextMove.moveValue} link`"
                                     :x1="isPuzzleGame ?
                                         gridRight - currentValuedRounds[currentValuedRoundId].position.remoteness * columnWidth :
@@ -679,9 +680,9 @@
                 <!-- Position Values -->
                 <template v-if="currentValuedRoundId >= 1">
                     <template v-for="roundNumber in currentValuedRoundId" :key="roundNumber">
-                        <template v-if="currentValuedRounds[roundNumber].position.positionValue === 'draw'">
-                            <circle :class="roundNumber !== currentValuedRoundId ? 'clickable' : ''"
-                                class="draw position-value"
+                        <template v-if="currentValuedRounds[roundNumber].position.positionValue === 'draw' || currentValuedRounds[roundNumber].position.remoteness == -200">
+                            <circle 
+                                :class="(roundNumber !== currentValuedRoundId ? 'clickable' : '') + ' ' + currentValuedRounds[roundNumber].position.positionValue + ' position-value'"
                                 :cx="isPuzzleGame ? gridLeft : chartWidth / 2"
                                 :cy="gridTop + roundNumber * rowHeight - rowHeight / 2"
                                 :r="positionValueSize"

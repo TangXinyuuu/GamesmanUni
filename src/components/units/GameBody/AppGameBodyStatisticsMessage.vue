@@ -1,50 +1,66 @@
 <template>
     <div id="app-game-body-statistics-message" v-if="showNextMoveHints">
-        <template v-if="currentRemoteness != 0">
-            <p v-if="!isPuzzleGame && currentPositionValue === 'draw'">
-                <b class="uni-turn-1">{{ currentLeftPlayerName }}</b> and 
-                <b class="uni-turn-2">{{ currentRightPlayerName }}</b> are in a 
-                <mark :class="`uni-${currentPositionValue}`">draw</mark>.
-            </p>
-            <p v-else-if="!isPuzzleGame && currentPositionValue === 'unsolved'">
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b>'s
-                turn. {{ mexStr }}
-            </p>
-            <p v-else-if="!isPuzzleGame">
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
-                <mark :class="`uni-${currentPositionValue}`">{{ currentPositionValue }}</mark> 
-                the game<span v-if="currentRemoteness != -100"> in {{ currentRemoteness }} 
-                move<span v-if="currentRemoteness !== 1">s</span></span>. {{ mexStr }}
-            </p>
-            <p v-else>
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
-                <mark :class="`uni-win`">solve</mark> the puzzle in {{ currentRemoteness }} 
-                move<span v-if="currentRemoteness !== 1">s</span>.
-            </p> 
+        <template v-if="!isEndOfMatch">
+            <template v-if="isPuzzleGame">
+                <p v-if="currentPositionValue === 'lose'">
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
+                    <mark :class="`uni-lose`">fail</mark> the puzzle.
+                </p>
+                <p v-else>
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
+                    <mark :class="`uni-win`">solve</mark> the puzzle in {{ currentRemoteness }} 
+                    move<span v-if="currentRemoteness !== 1">s</span>.
+                </p>
+            </template>
+            <template v-else>
+                <p v-if="currentPositionValue === 'draw'">
+                    <b class="uni-turn-1">{{ currentLeftPlayerName }}</b> and 
+                    <b class="uni-turn-2">{{ currentRightPlayerName }}</b> are in a 
+                    <mark :class="`uni-${currentPositionValue}`">draw</mark>.
+                </p>
+                <p v-else-if="currentPositionValue === 'unsolved'">
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b>'s
+                    turn. {{ mexStr }}
+                </p>
+                <p v-else>
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> should 
+                    <mark :class="`uni-${currentPositionValue}`">{{ currentPositionValue }}</mark> 
+                    the game<span v-if="currentRemoteness != -100"> in {{ currentRemoteness }} 
+                    move<span v-if="currentRemoteness !== 1">s</span></span>. {{ mexStr }}
+                </p>
+            </template>
         </template>
         <template v-else>
-            <p v-if="!isPuzzleGame && currentPositionValue === 'win'">
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
-                <mark :class="`uni-${currentPositionValue}`">won</mark> the game! {{ mexStr }}
-            </p>
-            <p v-else-if="!isPuzzleGame && currentPositionValue === 'tie'">
-                <b class="uni-turn-1">{{ currentLeftPlayerName }}</b> and 
-                <b class="uni-turn-2">{{ currentRightPlayerName }}</b> have 
-                <mark :class="`uni-${currentPositionValue}`">tied</mark> the game!
-            </p>
-            <p v-else-if="!isPuzzleGame && currentPositionValue === 'lose'">
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
-                <mark :class="`uni-${currentPositionValue}`">lost</mark> the game! {{ mexStr }}
-            </p>
-            <p v-else-if="isPuzzleGame">
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
-                <mark :class="`uni-win`">solved</mark> the puzzle!
-            </p>
-            <p v-else>
-                <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
-                <mark :class="`uni-${currentPositionValue}`">{{ currentPositionValue }}</mark> 
-                the game! {{ mexStr }}
-            </p>
+            <template v-if="isPuzzleGame">
+                <p v-if="currentPositionValue === 'lose'">
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
+                    <mark :class="`uni-lose`">failed</mark> the puzzle!
+                </p>
+                <p v-else>
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
+                    <mark :class="`uni-win`">solved</mark> the puzzle!
+                </p>
+            </template>
+            <template v-else>
+                <p v-if="currentPositionValue === 'win'">
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
+                    <mark :class="`uni-${currentPositionValue}`">won</mark> the game! {{ mexStr }}
+                </p>
+                <p v-else-if="currentPositionValue === 'tie'">
+                    <b class="uni-turn-1">{{ currentLeftPlayerName }}</b> and 
+                    <b class="uni-turn-2">{{ currentRightPlayerName }}</b> have 
+                    <mark :class="`uni-${currentPositionValue}`">tied</mark> the game!
+                </p>
+                <p v-else-if="currentPositionValue === 'lose'">
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
+                    <mark :class="`uni-${currentPositionValue}`">lost</mark> the game! {{ mexStr }}
+                </p>
+                <p v-else>
+                    <b :class="`uni-turn-${currentTurn}`">{{ currentPlayerName }}</b> has 
+                    <mark :class="`uni-${currentPositionValue}`">{{ currentPositionValue }}</mark> 
+                    the game! {{ mexStr }}
+                </p>
+            </template>
         </template>
     </div>
 </template>
@@ -63,6 +79,7 @@
     const currentPlayerName = computed(() => (store.getters.currentPlayer ? store.getters.currentPlayer.name : ""));
     const currentRemoteness = computed(() => store.getters.currentRemoteness);
     const currentPositionValue = computed(() => store.getters.currentPositionValue);
+    const isEndOfMatch = computed(() => store.getters.isEndOfMatch);
     const mexStr = computed(() => (store.getters.currentPositionMex !== "") ? "[Grundy #: " + store.getters.currentPositionMex + "]" : "");
 </script>
 

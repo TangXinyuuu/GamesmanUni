@@ -87,7 +87,6 @@ const formatMoves = (source: Array<{
         positionValue: string;
         remoteness: number;
         mex: string;
-        animationPhases: Array<Array<string>>;
     }>) => {
     const target: Types.Moves = { ...Defaults.defaultAvailableMoves };
     if (source.length) target[source[0].move] = { ...source[0], moveValueOpacity: 1 };

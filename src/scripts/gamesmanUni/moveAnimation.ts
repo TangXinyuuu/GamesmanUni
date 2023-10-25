@@ -129,37 +129,38 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
     if (animationType === "entityFade") {
         for (i = animationWindow[0]; i < animationWindow[1]; i++) {
             if (currBoard[i] != nextBoard[i]) {
-                if (currBoard[i] != '-' && currBoard[i] in entities) { // Entity originally at center i shall fade out
-                    gsap.fromTo("#entity" + i, {autoAlpha: 1}, {duration: 0.5, autoAlpha: 0});
-                } 
-                if (nextBoard[i] != '-') { // Entity that will be at center i shall fade in
-                    appearingChar = nextBoard[i];
-                    if (appearingChar in entities) {
-                        entitiesAppear = true;
-                        var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-                        newElement.setAttribute("class", "appearingEntity");
-                        newElement.setAttribute("x", (centers[i][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
-                        newElement.setAttribute("y", (centers[i][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
-                        newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
-                        newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
-                        newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
-                        newElement.setAttribute("opacity", "0.001");
-                        g.appendChild(newElement);
+                var cct = currBoard[i] + nextBoard[i];
+                if (cct in entities) {
+                    gsap.fromTo("#entity" + i, {autoAlpha: 1}, {duration: 0.001, autoAlpha: 0});
+                    var etelement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+                    etelement.setAttribute("x", (centers[i][0] - 0.5 * entities[cct].scale * widthFactor).toString());
+                    etelement.setAttribute("y", (centers[i][1] - 0.5 * entities[cct].scale * widthFactor).toString());
+                    etelement.setAttribute("width", (entities[cct].scale * widthFactor).toString());
+                    etelement.setAttribute("height", (entities[cct].scale * widthFactor).toString());
+                    etelement.setAttribute("href", getImageSource(entities[cct].image));
+                    g.appendChild(etelement);
+                } else {
+                    if (currBoard[i] != '-' && currBoard[i] in entities) { // Entity originally at center i shall fade out
+                        gsap.fromTo("#entity" + i, {autoAlpha: 1}, {duration: 0.5, autoAlpha: 0});
+                    } 
+                    if (nextBoard[i] != '-') { // Spawn entities that'll fade in
+                        appearingChar = nextBoard[i];
+                        if (appearingChar in entities) {
+                            entitiesAppear = true;
+                            var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+                            newElement.setAttribute("class", "appearingEntity");
+                            newElement.setAttribute("x", (centers[i][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
+                            newElement.setAttribute("y", (centers[i][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
+                            newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
+                            newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
+                            newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
+                            newElement.setAttribute("opacity", "0.001");
+                            g.appendChild(newElement);
+                        }
                     }
                 }
             }
         }
-        if (foregroundImagePath !== "") { // Redraw foreground image in front of any newly introduced entities
-            var newForeGroundElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            newForeGroundElement.setAttribute("width", scaledWidth.toString());
-            newForeGroundElement.setAttribute("height", scaledHeight.toString());
-            newForeGroundElement.setAttribute("href", getImageSource(foregroundImagePath));
-            g.appendChild(newForeGroundElement);
-        }
-        if (entitiesAppear) {
-            gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
-        }
-        return 500;
     } else if (animationType === "simpleSlides") {
         for (i = animationWindow[0]; i < animationWindow[1]; i++) {
             if (currBoard[i] != nextBoard[i]) {
@@ -185,12 +186,12 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             }
         }
 
-        for (i of fadeOutIdxs) {
+        for (i of fadeOutIdxs) { // Play fade-out animations
             if (currBoard[i] in entities) {
                 gsap.fromTo("#entity" + i, {autoAlpha: 1}, {duration: 0.5, autoAlpha: 0});
             }
         }
-        for (i of fadeInIdxs) {
+        for (i of fadeInIdxs) { // Spawn entities that'll fade in
             appearingChar = nextBoard[i];
             if (appearingChar in entities) {
                 entitiesAppear = true;
@@ -226,20 +227,22 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
                 gsap.to("#movingEntity" + idxFrom, {duration: 0.5, x: toCoords[0] - fromCoords[0], y: toCoords[1] - fromCoords[1]});
             }
         }
-
-        if (foregroundImagePath !== "") { // Redraw foreground image in front of any newly introduced entities
-            var newForeGroundElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            newForeGroundElement.setAttribute("width", scaledWidth.toString());
-            newForeGroundElement.setAttribute("height", scaledHeight.toString());
-            newForeGroundElement.setAttribute("href", getImageSource(foregroundImagePath));
-            g.appendChild(newForeGroundElement);
-        }
-        if (fadeInIdxs.length > 0) {
-            gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
-        }
-        return 500
     } else if (animationType === "custom") {
         console.log("Custom");
+    }
+
+    if (animationType === "simpleSlides" || animationType === "entityFade") {
+        if (foregroundImagePath !== "") { // Redraw foreground image in front of any newly introduced entities
+            var newForegroundElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+            newForegroundElement.setAttribute("width", scaledWidth.toString());
+            newForegroundElement.setAttribute("height", scaledHeight.toString());
+            newForegroundElement.setAttribute("href", getImageSource(foregroundImagePath));
+            g.appendChild(newForegroundElement);
+        }
+        if (entitiesAppear) { // Play fade-in animations
+            gsap.fromTo(".appearingEntity", {opacity: 0.001}, {duration: 0.5, opacity: 1});
+        }
+        return 500;
     }
     return 0;
 }
