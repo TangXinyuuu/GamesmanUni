@@ -34,10 +34,10 @@
             </div>
         </div>
         <div class="uni-dropdown">
-            <div class="uni-dropdown-selection">{{ t(`appRootFontSizes.${appRootFontSize}`) }} {{ t("fontSizeUnit") }} ▼</div>
+            <div class="uni-dropdown-selection">{{ appRootFontSize + "px" }} ▼</div>
             <div class="uni-dropdown-menu">
                 <div class="uni-dropdown-menu-option" v-for="fontSizeOption in appRootFontSizes" :key="fontSizeOption" :style="setActiveFontSizeOptionStyle(fontSizeOption)" @click="setAppRootFontSize(fontSizeOption)">
-                    {{ t(`appRootFontSizes.${fontSizeOption}`) }}
+                    {{ fontSizeOption }}
                 </div>
             </div>
         </div>
@@ -74,12 +74,12 @@
         document.documentElement.style.backgroundColor = getComputedStyle(document.getElementById("app")!).getPropertyValue("--backgroundColor");
         appTheme.value = newAppTheme;
     };
-    const appRootFontSizes = ["05px", "06px", "07px", "08px", "09px", "10px", "11px", "12px", "13px", "14px", "15px", "16px", "17px", "18px", "19px", "20px", "21px", "22px", "23px", "24px", "25px"];
+    const appRootFontSizes = ["05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"];
     const appRootFontSize = ref("");
     const setActiveFontSizeOptionStyle = (fontSizeOption: string) => (fontSizeOption === appRootFontSize.value ? { background: "var(--themeColor)" } : { background: "var(--neutralColor)" });
     const setAppRootFontSize = (newAppFontSize: string) => {
         store.commit(mutationTypes.setRootFontSize, newAppFontSize);
-        document.documentElement.style.fontSize = newAppFontSize;
+        document.documentElement.style.fontSize = newAppFontSize + "px";
         appRootFontSize.value = newAppFontSize;
     };
     setAppLocale(store.getters.locale);

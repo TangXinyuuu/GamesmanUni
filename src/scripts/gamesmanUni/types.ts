@@ -94,7 +94,6 @@ export type Move = {
     positionValue: string;
     remoteness: number;
     mex: string;
-    animationPhases: Array<Array<string>>;
 };
 
 export type Commits = Update & {

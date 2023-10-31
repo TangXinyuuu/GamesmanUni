@@ -15,7 +15,7 @@
     <g v-if="!animationPlaying && entitiesOverArrows"> 
       <g v-for="(arrow, i) in richPositionData.arrows" :key="'arrow' + i">
         <path
-          :d="formatArrowPolylinePoints(arrow, arrowWidth)"
+          :d="formatArrowPathPoints(arrow, arrowWidth)"
           :class="'app-game-board-default-arrow ' + getBoardMoveElementHintClass(arrow.move)"
           :opacity="options.showNextMoveHints && options.showNextMoveDeltaRemotenesses ? arrow.move.hintOpacity : 1"
           @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: arrow.move.str })"/>
@@ -75,7 +75,7 @@
       <g v-if="!entitiesOverArrows"> 
         <g v-for="(arrow, i) in richPositionData.arrows " :key="'arrow' + i">
           <path
-            :d="formatArrowPolylinePoints(arrow, arrowWidth)"
+            :d="formatArrowPathPoints(arrow, arrowWidth)"
             :class="'app-game-board-default-arrow ' + getBoardMoveElementHintClass(arrow.move)"
             :opacity="options.showNextMoveHints && options.showNextMoveDeltaRemotenesses ? arrow.move.hintOpacity : 1"
             @click="!isComputerTurn && store.dispatch(actionTypes.runMove, { move: arrow.move.str })"/>
@@ -145,7 +145,6 @@
   const space = computed(() => theTheme.value.space);
   const widthFactor = computed(() => scaledWidth / space.value[0]);
   const scaledHeight = computed(() => space.value[1] * widthFactor.value);
-  const animationType = computed(() => theTheme.value.animationType || "");
   const entities = computed(() => theTheme.value.entities);
   const centers = computed(() =>
     theTheme.value.centers.map((a: [number, number]) =>
@@ -245,7 +244,7 @@
              | /
              5
   */
-  const formatArrowPolylinePoints = 
+  const formatArrowPathPoints = 
       (arrow: GDefaultRegular2DBoardArrow,
       thickness: number = 0.75,
       startOffset: number = 3,
@@ -262,7 +261,7 @@
     fromCoords[1] += dir[1] * startOffsetPct;
     coords3[0] -= dir[0] * endOffsetPct;
     coords3[1] -= dir[1] * endOffsetPct;
-    const arrowheadHeight = 3 * thickNorm * Math.tan(0.959931); // 55 degrees
+    const arrowheadHeight = 4.284444 * thickNorm; // = 3tan(55 degrees) * thickNorm
     const midCoords = [coords3[0] - dir[0] * arrowheadHeight, coords3[1] - dir[1] * arrowheadHeight];
     const coords0 = [fromCoords[0] - perpdir[0] * thickNorm, fromCoords[1] - perpdir[1] * thickNorm];
     const coords6 = [fromCoords[0] + perpdir[0] * thickNorm, fromCoords[1] + perpdir[1] * thickNorm];
@@ -272,15 +271,9 @@
     const coords5 = [midCoords[0] + perpdir[0] * thickNorm, midCoords[1] + perpdir[1] * thickNorm];
     const coords4 = [midCoords[0] + 3 * perpdir[0] * thickNorm, midCoords[1] + 3 * perpdir[1] * thickNorm];
 
-    return `M ${coords0[0]},${coords0[1]}
-            L ${coords1[0]},${coords1[1]}
-            L ${coords2[0]},${coords2[1]}
-            L ${coords3[0]},${coords3[1]}
-            L ${coords4[0]},${coords4[1]}
-            L ${coords5[0]},${coords5[1]}
-            L ${coords6[0]},${coords6[1]}
-            A ${thickness} ${thickness} 0 0 0 ${coords0[0]} ${coords0[1]}
-            Z`;
+    return `M${coords0[0]},${coords0[1]}L${coords1[0]},${coords1[1]}L${coords2[0]},${coords2[1]}
+            L${coords3[0]},${coords3[1]}L${coords4[0]},${coords4[1]}L${coords5[0]},${coords5[1]}
+            L${coords6[0]},${coords6[1]}A ${thickness} ${thickness} 0 0 0 ${coords0[0]} ${coords0[1]}Z`;
   };
 
   const getBoardMoveElementHintClass = (move?: GDefaultRegular2DMove): string => 

@@ -41,15 +41,26 @@ body {
         font-size: 4em;
         padding-bottom: 1em;
         font-weight: 900;
+        color: var(--secondaryColor);
     }
 
     h2 {
         text-align: left;
-        font-size: 3em;
-        padding-top: 1em;
+        font-weight: 600;
+        font-size: 2em;
+        margin: 1rem 0;
+        color: var(--secondaryColor);
         padding-bottom: 0.3em;
-        font-weight: 900;
         border-bottom: 0.1em solid var(--neutralColor);
+    }
+
+    p {
+        font-size: 1.6em;
+        padding-bottom: 1.6em;
+        strong {
+            font-size: 1em;
+            font-weight: 800;
+        }
     }
 
     img {
@@ -57,26 +68,25 @@ body {
         display: block;
         margin-left: auto;
         margin-right: auto;
+        padding: 3em;
         width: 30em;
-        height: 30em;
-    }
-
-    p {
-        text-align: left;
-        padding-top: 0.5em;
-        font-size: 2em;
-        padding-bottom: 1em;
-        line-height: 1.4em;
     }
 
     ul, ol {
-        padding-top: 1em;
+        padding-bottom: 1.6em;
+        padding-left: 1.6em;
         list-style: square;
 
         li {
-            list-style-position: inside;
-            font-size: 1.5em;
-            text-align: left;
+            text-align: justify;
+            list-style-position: outside;
+            font-size: 1.6em;
+            padding-bottom: 0.8em;
+
+            strong {
+                font-size: 1em;
+                font-weight: 800;
+            }
         }
 
         a {

@@ -9,7 +9,7 @@ export const defaultPreferences: Types.Preferences = {
     theme: "light",
     locale: "en-US",
     fallbackLocale: "en-US",
-    rootFontSize: "11px",
+    rootFontSize: "11",
     volume: 1
 };
 
@@ -30,8 +30,7 @@ export const defaultAvailableMove: Types.Move = {
     position: "",
     positionValue: "",
     remoteness: 0,
-    mex: "",
-    animationPhases: []
+    mex: ""
 };
 
 export const defaultAvailableMoveNames: Types.MoveNames = {};

@@ -104,7 +104,6 @@ export type Position = Status & {
             positionValue: string;
             remoteness: number;
             mex: string;
-            animationPhases: Array<Array<string>>;
         }>;
         position: string;
         positionValue: string;
