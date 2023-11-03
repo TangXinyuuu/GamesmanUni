@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <svg id="bc" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <defs>
+        <path stroke-linejoin="round" stroke="#000" stroke-width="2" d=""/>
         <g id="hex">
             <line x1="10" y1="30" x2="18.67" y2="25" style="stroke:rgb(0,0,0);stroke-width:2" stroke-linecap="round" />
             <line x1="18.67" y1="25" x2="18.67" y2="15" style="stroke:rgb(0,0,0);stroke-width:2" stroke-linecap="round" />

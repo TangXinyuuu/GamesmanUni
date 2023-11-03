@@ -3,6 +3,7 @@
         <button @click="store.commit(mutationTypes.showInstructions, true)">𝓲</button>
         <UniPopupWindow v-if="options && options.showInstructions" @close="store.commit(mutationTypes.showInstructions, false)">
             <VueMarkdownIt class="c-markdown" :break="true" :linkify="true" :plugins="plugins" :source="instructions" />
+            If you worked on this project and were not properly credited, please email <a href="mailto: ddgarcia@cs.berkeley.edu">ddgarcia@cs.berkeley.edu</a> to request a correction.
         </UniPopupWindow>
     </div>
 </template>

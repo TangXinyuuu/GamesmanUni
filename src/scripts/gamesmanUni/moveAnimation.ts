@@ -250,7 +250,7 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
 export const handleMoveAnimation = (volume: number, currentMatch: Types.Match, moveObj: Types.Move) => {
     const currPosition = currentMatch.round.position.position;
     const nextPosition = moveObj.position;
-    if (currentMatch.gameId === 'ttt') {
+    if (currentMatch.gameId === 'tictactoe') {
         return animateTTT(volume, moveObj);
     } else if (currentMatch.gameId === 'sim') {
         return animateSim(volume, moveObj);
@@ -282,7 +282,7 @@ export const handleMoveAnimation = (volume: number, currentMatch: Types.Match, m
     fails to load.
 */
 export const animationEpilogue = (currentMatch: Types.Match) => {
-    if (currentMatch.gameId === 'ttt') {
+    if (currentMatch.gameId === 'tictactoe') {
         return; // todo
     } else if (currentMatch.gameId === 'sim') {
         return; // todo
