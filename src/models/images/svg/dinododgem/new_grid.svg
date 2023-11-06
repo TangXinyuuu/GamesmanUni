@@ -1,22 +1,15 @@
-<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-     y="0px"
-     viewBox="0 0 60 60" style="enable-background:new -10 10 60 60;" xml:space="preserve">
-    <rect x="0" y="40" width="20" height="20" stroke="black" stroke-width="0.25" fill="#black"/>
-    <rect x="0" y="10" width="10" height="30" stroke="black" stroke-width="0.25" fill="#6838b6"/>
-    <rect x="20" y="50" width="30" height="10" stroke="black" stroke-width="0.25" fill="#9fce1e"/>
-    <rect x="10" y="10" width="40" height="40" stroke="black" stroke-width="0.25" fill="#a77432"/>
-
-    <line x1="-10" y1="10" x2="40" y2="10" stroke="black" stroke-width="0.25"/>
-    <line x1="0" y1="20" x2="50" y2="20" stroke="black" stroke-width="0.25"/>
-    <line x1="0" y1="30" x2="50" y2="30" stroke="black" stroke-width="0.25"/>
-    <line x1="0" y1="40" x2="50" y2="40" stroke="black" stroke-width="0.25"/>
-    <line x1="0" y1="50" x2="50" y2="50" stroke="black" stroke-width="0.25"/>
-    <line x1="0" y1="60" x2="50" y2="60" stroke="black" stroke-width="0.25"/>
-
-    <line x1="0" y1="10" x2="0" y2="60" stroke="black" stroke-width="0.25"/>
-    <line x1="10" y1="10" x2="10" y2="60" stroke="black" stroke-width="0.25"/>
-    <line x1="20" y1="10" x2="20" y2="60" stroke="black" stroke-width="0.25"/>
-    <line x1="30" y1="10" x2="30" y2="60" stroke="black" stroke-width="0.25"/>
-    <line x1="40" y1="10" x2="40" y2="60" stroke="black" stroke-width="0.25"/>
-    <line x1="50" y1="10" x2="50" y2="60" stroke="black" stroke-width="0.25"/>
+<svg version="1.1" id="BackgroundSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+    <path d="M0,10h20v30h-20z" fill="#6838b6"/>
+    <path d="M20,40h30v20h-30z" fill="#9fce1e"/>
+    <path d="M10,10h40v40h-40z" fill="#a77432"/>
+    <g fill="none" stroke-width="0.25" stroke-linecap="round">
+    <path d="M20,50v9.875h30v-9.875" stroke="#b6ce72"/>
+    <path d="M10,10h-9.875v30h9.875" stroke="#998faa"/>
+    <path d="M10,10h40M10,20h40M10,30h40M10,40h40M10,50h40M10,10v40M20,10v40M30,10v40M40,10v40M50,10v40" stroke="#dcab6b"/>
+    </g>
+    <g>
+    <path d="M55,13v4l2.856,-2zM55,23v4l2.856,-2zM55,33v4l2.856,-2zM55,43v4l2.856,-2z" fill="#6838b6"/>
+    <path d="M13,5h4l-2,-2.856zM23,5h4l-2,-2.856zM33,5h4l-2,-2.856zM43,5h4l-2,-2.856z" fill="#9fce1e"/>
+    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/>
+    </g>
 </svg>
