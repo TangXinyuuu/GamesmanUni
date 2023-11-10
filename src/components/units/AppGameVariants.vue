@@ -7,7 +7,7 @@
                 <img :src="getLogoSource(variant.id)" :alt="game.name + ' ' + variant.description + ' Logo'" style="width: 8rem" />
                 <p>{{ variant.description }}</p>
             </router-link>
-            <div v-if="gameCustom" v-on:click="customBoardRoute">
+            <div v-if="gameCustom" v-on:click="customBoardRoute" :class="game.gui_status">
                 <img :src="getLogoSource('custom')" :alt="game.name + ' ' + 'Custom Logo'" style="width: 8rem" />
                 <p>Custom</p>
             </div>
@@ -95,19 +95,19 @@
                 }
             }
 
-            > a.v3 {
+            > a.v3, div.v3 {
                 border: 0.2rem solid purple;
             }
 
-            > a.v2 {
+            > a.v2, div.v2 {
                 border: 0.2rem solid gold;
             }
 
-            > a.v1 {
+            > a.v1, div.v1 {
                 border: 0.2rem solid silver;
             }
 
-            > a.v0 {
+            > a.v0, div.v0 {
                 border: 0.2rem solid #CD7F32;
             }
 
