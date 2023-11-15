@@ -61,6 +61,7 @@ export type GameVariant = Status & {
             startPosition: string;
             variantId: string;
             imageAutoGUIData: ImageAutoGUIData;
+            gui_status: string;
         }>;
     };
 };

@@ -89,6 +89,7 @@
 
 <style lang="scss" scoped>
     #app-header-preferences {
+        width: 30%;
         align-content: center;
         align-items: center;
         display: flex;

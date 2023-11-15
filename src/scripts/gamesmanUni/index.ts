@@ -266,7 +266,7 @@ const loadVariant = async (app: Types.App, payload: { gameType: string; gameId: 
         positions: { ...Defaults.defaultPositions },
         imageAutoGUIData: variant_response.response.variant[0].imageAutoGUIData,
         status: variant_response.status,
-        gui_status: variant_response.gui_status
+        gui_status: variant_response.response.variant[0].gui_status
     };
 };
 
