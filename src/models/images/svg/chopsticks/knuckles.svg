@@ -1,1 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> <path fill="#fff" d="M18,13h2.6v17h-2.6zM18,70h2.6v17h-2.6zM79,13h2.6v17h-2.6zM79,70h2.6v17h-2.6z"/> <g stroke-linejoin="round"  stroke="#000" fill="#fff"> <path transform="translate(100 40) scale(-1)" d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1"/> <path transform="translate(0 40) scale(1,-1)" d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1"/> <path transform="translate(100 60) scale(-1,1)" d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1"/> <path transform="translate(0 60)" d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1"/> </g> </svg>
+<?xml version="1.0" encoding="utf-8"?>
+ <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <path d="M0,0h100v100h-100z" fill="#dcdcdc" />
+    <path fill="#fff" d="M18,8h2.6v17h-2.6zM18,75h2.6v17h-2.6zM79,8h2.6v17h-2.6zM79,75h2.6v17h-2.6z" />
+    <g stroke-linejoin="round" stroke="#000" fill="#fff">
+        <path transform="translate(100 35) scale(-1)"
+            d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1" />
+        <path transform="translate(0 35) scale(1,-1)"
+            d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1" />
+        <path transform="translate(100 65) scale(-1,1)"
+            d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1" />
+        <path transform="translate(0 65)"
+            d="M20.5,10.25a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1a12,4 0,0,1 0,4.1" />
+    </g>
+</svg>
