@@ -121,6 +121,12 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
     var i;
     var entitiesAppear = false;
     var appearingChar, movingChar;
+    var dictList:Types.Dict[]
+    dictList = [
+        { tag: "m", time: 0.5 },
+        { tag: "s", time: 0.5, a: 0.1},
+        { tag: 'o', time: 0.5, a: 2}
+    ];
 
     var svg = document.getElementById('image-autogui'); //Get svg element
     var g = document.createElementNS("http://www.w3.org/2000/svg", 'g');
@@ -167,7 +173,8 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             }
         }
         return 500;
-    } else if (animationType === "simpleSlides") {
+    }
+    else if (animationType === "simpleSlides") {
         for (i = animationWindow[0]; i < animationWindow[1]; i++) {
             if (currBoard[i] != nextBoard[i]) {
                 diffIdxs.push(i);
@@ -191,7 +198,8 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
                 }
             }
         }
-
+        console.log("fadeOutIdxs")
+        console.log(fadeOutIdxs)
         for (i of fadeOutIdxs) {
             if (currBoard[i] in entities) {
                 gsap.fromTo("#entity" + i, {autoAlpha: 1}, {duration: 0.5, autoAlpha: 0});
@@ -251,8 +259,90 @@ const animateImageAutoGUI = (volume: number, currPosition: string, nextPosition:
             }
         }
         return 500
-    } else if (animationType === "custom") {
-        console.log("Custom");
+    }
+    else if (animationType === "custom") {
+        for (i = animationWindow[0]; i < animationWindow[1]; i++) {
+            if (currBoard[i] != nextBoard[i]) {
+                diffIdxs.push(i);
+            }
+        }
+
+        var slidesIdxs: [number, number][] = [];
+        var fadeOutIdxs = diffIdxs.filter((idx) => currBoard[idx] != '-'); //渐出
+        var fadeInIdxs = diffIdxs.filter((idx) => nextBoard[idx] != '-'); //渐进
+        for (const idxFrom of diffIdxs) {
+            if (currBoard[idxFrom] != '-') {
+                for (const idxTo of diffIdxs) {
+                    if (currBoard[idxFrom] == nextBoard[idxTo]) {
+                        slidesIdxs.push([idxFrom, idxTo]);
+                        i = fadeOutIdxs.indexOf(idxFrom);
+                        if (i !== -1) fadeOutIdxs.splice(i, 1);
+                        i = fadeInIdxs.indexOf(idxTo);
+                        if (i !== -1) fadeInIdxs.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        var idxFrom = -1;
+        var idxTo = -1;
+        if (slidesIdxs.length > 0) {
+            idxFrom = slidesIdxs[0][0];
+            idxTo = slidesIdxs[0][1];
+        } else if (fadeOutIdxs.length > 0) {
+            idxFrom = fadeOutIdxs[0];
+            if (currBoard[idxFrom] === 'x'){
+                idxTo = idxFrom - 4;
+            } else if (currBoard[idxFrom] === 'o') {
+                idxTo = idxFrom + 1;
+            }
+        } else if (fadeInIdxs.length > 0) {
+            idxFrom = fadeInIdxs[0];
+        }
+
+        dictList.forEach((item) => {
+            switch (item.tag) {
+                case "m":
+                    const toCoords = centers[idxTo];
+                    const fromCoords = centers[idxFrom];
+                    movingChar = currBoard[idxFrom];
+                    if (movingChar in entities) {
+                       gsap.to("#entity" + idxFrom, {duration: item.time, x: toCoords[0] - fromCoords[0], y: toCoords[1] - fromCoords[1]});
+                    }
+                    break
+                case "r":
+                    gsap.to("#entity" + idxFrom, { duration: item.time, rotation: item.a });
+                    break
+                case "s":
+                    gsap.to("#entity" + idxFrom, { duration: item.time, scale: item.a, transformOrigin: "center center" });
+                    break
+                case "o":
+                    gsap.fromTo("#entity" + idxFrom, {autoAlpha: 1}, {duration: item.time, autoAlpha: 0});
+                    break
+                case "i":
+                    appearingChar = nextBoard[idxTo];
+                    console.log(appearingChar)
+                    if (appearingChar in entities) {
+                        console.log("appearingChar" + appearingChar)
+                        entitiesAppear = true;
+                        var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+                        newElement.setAttribute("class", "appearingEntity");
+                        newElement.setAttribute("x", (centers[idxTo][0] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
+                        newElement.setAttribute("y", (centers[idxTo][1] - 0.5 * entities[appearingChar].scale * widthFactor).toString());
+                        newElement.setAttribute("width", (entities[appearingChar].scale * widthFactor).toString());
+                        newElement.setAttribute("height", (entities[appearingChar].scale * widthFactor).toString());
+                        newElement.setAttribute("href", getImageSource(entities[appearingChar].image));
+                        newElement.setAttribute("opacity", "0");
+                        g.appendChild(newElement);
+                        gsap.fromTo(".appearingEntity", {autoAlpha: 0}, {duration: item.time, autoAlpha: 1});
+                    }
+                    break
+                default:
+                    console.error(`Unsupported tag: ${item.tag}`);
+            }
+        });
+        return 1500;
     }
     return 0;
 }
